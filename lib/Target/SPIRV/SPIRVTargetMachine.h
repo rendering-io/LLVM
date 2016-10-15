@@ -27,6 +27,8 @@ public:
                      CodeGenOpt::Level OL);
 
   ~SPIRVTargetMachine() override;
+
+  TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
 };
 
 } // end namespace llvm

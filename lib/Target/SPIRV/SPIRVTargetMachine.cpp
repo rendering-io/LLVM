@@ -14,6 +14,7 @@
 
 #include "MCTargetDesc/SPIRVMCTargetDesc.h"
 #include "SPIRVTargetMachine.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/Support/TargetRegistry.h"
 
 using namespace llvm;
@@ -26,7 +27,7 @@ extern "C" void LLVMInitializeSPIRVTarget() {
 }
 
 //===----------------------------------------------------------------------===//
-// WebAssembly Lowering public interface.
+// SPIRV Lowering public interface.
 //===----------------------------------------------------------------------===//
 
 static Reloc::Model getEffectiveRelocModel(Optional<Reloc::Model> RM) {
@@ -49,3 +50,51 @@ SPIRVTargetMachine::SPIRVTargetMachine(const Target &T, const Triple &TT,
 }
 
 SPIRVTargetMachine::~SPIRVTargetMachine() {}
+
+namespace {
+/// SPIRV Code Generator Pass Configuration Options.
+class SPIRVPassConfig final : public TargetPassConfig {
+public:
+  SPIRVPassConfig(SPIRVTargetMachine *TM, PassManagerBase &PM)
+      : TargetPassConfig(TM, PM) {}
+
+  SPIRVTargetMachine &getSPIRVTargetMachine() const {
+    return getTM<SPIRVTargetMachine>();
+  }
+
+  FunctionPass *createTargetRegisterAllocator(bool) override;
+
+  void addIRPasses() override;
+  bool addInstSelector() override;
+  void addPostRegAlloc() override;
+  bool addGCPasses() override { return false; }
+  void addPreEmitPass() override;
+};
+} // end anonymous namespace
+
+TargetPassConfig *SPIRVTargetMachine::createPassConfig(PassManagerBase &PM) {
+  return new SPIRVPassConfig(this, PM);
+}
+
+FunctionPass *SPIRVPassConfig::createTargetRegisterAllocator(bool) {
+  return nullptr; // No reg alloc
+}
+
+//===----------------------------------------------------------------------===//
+// The following functions are called from lib/CodeGen/Passes.cpp to modify
+// the CodeGen pass sequence.
+//===----------------------------------------------------------------------===//
+
+void SPIRVPassConfig::addIRPasses() { TargetPassConfig::addIRPasses(); }
+
+bool SPIRVPassConfig::addInstSelector() {
+  (void)TargetPassConfig::addInstSelector();
+  //  addPass(
+  //      createSPIRVISelDag(getSPIRVTargetMachine(), getOptLevel()));
+
+  return false;
+}
+
+void SPIRVPassConfig::addPostRegAlloc() { TargetPassConfig::addPostRegAlloc(); }
+
+void SPIRVPassConfig::addPreEmitPass() { TargetPassConfig::addPreEmitPass(); }

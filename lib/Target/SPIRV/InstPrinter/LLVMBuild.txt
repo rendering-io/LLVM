@@ -1,4 +1,4 @@
-;===- ./lib/Target/SPIRV/MCTargetDesc/LLVMBuild.txt ------------*- Conf -*--===;
+;===- ./lib/Target/SPIRV/InstPrinter/LLVMBuild.txt -------------*- Conf -*--===;
 ;
 ;                     The LLVM Compiler Infrastructure
 ;
@@ -17,7 +17,7 @@
 
 [component_0]
 type = Library
-name = SPIRVDesc
+name = SPIRVAsmPrinter
 parent = SPIRV
-required_libraries = MC Support SPIRVInfo SPIRVAsmPrinter 
+required_libraries = MC Support
 add_to_library_groups = SPIRV
