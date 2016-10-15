@@ -44,6 +44,8 @@ SPIRVTargetMachine::SPIRVTargetMachine(const Target &T, const Triple &TT,
     : LLVMTargetMachine(
           T, TT.isArch64Bit() ? "e-m:e-p:64:64-i64:64-n32:64-S128"
                               : "e-m:e-p:32:32-i64:64-n32:64-S128",
-          TT, CPU, FS, Options, getEffectiveRelocModel(RM), CM, OL) {}
+          TT, CPU, FS, Options, getEffectiveRelocModel(RM), CM, OL) {
+  initAsmInfo();
+}
 
 SPIRVTargetMachine::~SPIRVTargetMachine() {}
