@@ -31,6 +31,11 @@ class Triple;
 class raw_pwrite_stream;
 
 Target &getTheSPIRVTarget();
+
+MCCodeEmitter *createSPIRVMCCodeEmitter(const MCInstrInfo &MCII);
+
+MCAsmBackend *createSPIRVAsmBackend(const Triple &TT);
+
 }
 
 #endif // LLVM_LIB_TARGET_SPIRV_MCTARGETDESC_SPIRVMCTARGETDESC_H

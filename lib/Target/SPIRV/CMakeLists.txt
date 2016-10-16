@@ -1,4 +1,17 @@
+set(LLVM_TARGET_DEFINITIONS SPIRV.td)
+
+tablegen(LLVM SPIRVGenAsmWriter.inc -gen-asm-writer)
+tablegen(LLVM SPIRVGenDAGISel.inc -gen-dag-isel)
+#tablegen(LLVM SPIRVGenFastISel.inc -gen-fast-isel)
+#tablegen(LLVM SPIRVGenInstrInfo.inc -gen-instr-info)
+#tablegen(LLVM SPIRVGenMCCodeEmitter.inc -gen-emitter)
+tablegen(LLVM SPIRVGenRegisterInfo.inc -gen-register-info)
+tablegen(LLVM SPIRVGenSubtargetInfo.inc -gen-subtarget)
+add_public_tablegen_target(SPIRVCommonTableGen)
+
 add_llvm_target(SPIRVCodeGen
+  SPIRVAsmPrinter.cpp
+  SPIRVMachineFunctionInfo.cpp
   SPIRVTargetMachine.cpp
 )
 

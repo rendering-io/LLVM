@@ -23,7 +23,7 @@ subdirectories = InstPrinter MCTargetDesc TargetInfo
 type = TargetGroup
 name = SPIRV
 parent = Target
-;has_asmprinter = 1
+has_asmprinter = 1
 ;has_disassembler = 1
 
 [component_1]
