@@ -1,4 +1,4 @@
-// SPIRVTargetMachine.h - Define TargetMachine for SPIR-V ------------*- C++ -*-
+//===- SPIRVTargetMachine.h - Define TargetMachine for SPIR-V ------*- C++ -*-//
 //
 //                     The LLVM Compiler Infrastructure
 //
@@ -16,10 +16,12 @@
 #define LLVM_LIB_TARGET_SPIRV_SPIRVTARGETMACHINE_H
 
 #include "llvm/Target/TargetMachine.h"
+#include "SPIRVSubtarget.h"
 
 namespace llvm {
 
 class SPIRVTargetMachine final : public LLVMTargetMachine {
+  std::unique_ptr<TargetLoweringObjectFile> TLOF;
 public:
   SPIRVTargetMachine(const Target &T, const Triple &TT, StringRef CPU,
                      StringRef FS, const TargetOptions &Options,
@@ -28,7 +30,17 @@ public:
 
   ~SPIRVTargetMachine() override;
 
+  const SPIRVSubtarget *
+  getSubtargetImpl(const Function &F) const override;
+
   TargetPassConfig *createPassConfig(PassManagerBase &PM) override;
+
+  TargetLoweringObjectFile *getObjFileLowering() const override {
+    return TLOF.get();
+  }
+
+  /// \brief Get the TargetIRAnalysis for this target.
+  TargetIRAnalysis getTargetIRAnalysis() override;  
 };
 
 } // end namespace llvm

@@ -14,6 +14,8 @@
 
 #include "MCTargetDesc/SPIRVMCTargetDesc.h"
 #include "SPIRVTargetMachine.h"
+#include "SPIRVTargetObjectFile.h"
+#include "SPIRVTargetTransformInfo.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/Support/TargetRegistry.h"
 
@@ -45,11 +47,18 @@ SPIRVTargetMachine::SPIRVTargetMachine(const Target &T, const Triple &TT,
     : LLVMTargetMachine(
           T, TT.isArch64Bit() ? "e-m:e-p:64:64-i64:64-n32:64-S128"
                               : "e-m:e-p:32:32-i64:64-n32:64-S128",
-          TT, CPU, FS, Options, getEffectiveRelocModel(RM), CM, OL) {
+          TT, CPU, FS, Options, getEffectiveRelocModel(RM), CM, OL),
+      TLOF(make_unique<SPIRVTargetObjectFile>()) {
   initAsmInfo();
 }
 
 SPIRVTargetMachine::~SPIRVTargetMachine() {}
+
+TargetIRAnalysis SPIRVTargetMachine::getTargetIRAnalysis() {
+  return TargetIRAnalysis([this](const Function &F) {
+    return TargetTransformInfo(SPIRVTTIImpl(this, F));
+  });
+}
 
 namespace {
 /// SPIRV Code Generator Pass Configuration Options.
