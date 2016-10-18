@@ -21,6 +21,7 @@
 namespace llvm {
 
 class SPIRVTargetMachine final : public LLVMTargetMachine {
+  std::unique_ptr<SPIRVSubtarget> ST;
   std::unique_ptr<TargetLoweringObjectFile> TLOF;
 public:
   SPIRVTargetMachine(const Target &T, const Triple &TT, StringRef CPU,
