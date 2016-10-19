@@ -16,7 +16,24 @@
 #define LLVM_LIB_TARGET_SPIRV_MCTARGETDESC_SPIRVMCTARGETDESC_H
 
 #include "llvm/MC/MCInstrDesc.h"
+#include "llvm/MC/MCInstrInfo.h"
+#include "llvm/MC/MCSubtargetInfo.h"
 #include "llvm/Support/DataTypes.h"
+
+
+// Defines symbolic names for SPIRV registers. This defines a mapping from
+// register name to register number.
+//
+#define GET_REGINFO_ENUM
+#include "SPIRVGenRegisterInfo.inc"
+
+// Defines symbolic names for the SPIRV instructions.
+//
+#define GET_INSTRINFO_ENUM
+#include "SPIRVGenInstrInfo.inc"
+
+#define GET_SUBTARGETINFO_ENUM
+#include "SPIRVGenSubtargetInfo.inc"
 
 namespace llvm {
 

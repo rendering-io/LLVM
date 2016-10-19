@@ -56,7 +56,7 @@ def ARGUMENTS : SPIRVReg<"ARGUMENTS">;
 
 def I32 : SPIRVRegClass<[i32], 32, (add FP32, SP32)>;
 def I64 : SPIRVRegClass<[i64], 64, (add FP64, SP64)>;
-def F32 : SPIRVRegClass<[f32], 32, (add F32_0)>;
+//def F32 : SPIRVRegClass<[f32], 32, (add F32_0)>;
 def F64 : SPIRVRegClass<[f64], 64, (add F64_0)>;
-def V128 : SPIRVRegClass<[v4f32, v4i32, v16i8, v8i16], 128, (add V128_0)>;
+//def V128 : SPIRVRegClass<[v4f32, v4i32, v16i8, v8i16], 128, (add V128_0)>;
 

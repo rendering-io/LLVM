@@ -11,7 +11,10 @@ add_public_tablegen_target(SPIRVCommonTableGen)
 
 add_llvm_target(SPIRVCodeGen
   SPIRVAsmPrinter.cpp
+  SPIRVFrameLowering.cpp
+  SPIRVInstrInfo.cpp
   SPIRVMachineFunctionInfo.cpp
+  SPIRVRegisterInfo.cpp
   SPIRVSubtarget.cpp
   SPIRVTargetMachine.cpp
   SPIRVTargetObjectFile.cpp

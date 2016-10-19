@@ -28,6 +28,7 @@ public:
                             /*LocalAreaOffset=*/0,
                             /*TransientStackAlignment=*/16,
                             /*StackRealignable=*/true) {}
+  virtual ~SPIRVFrameLowering();
 
   MachineBasicBlock::iterator eliminateCallFramePseudoInstr(
       MachineFunction &MF, MachineBasicBlock &MBB,

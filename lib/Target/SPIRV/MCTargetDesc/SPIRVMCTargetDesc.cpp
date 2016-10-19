@@ -21,6 +21,16 @@ using namespace llvm;
 
 #define DEBUG_TYPE "spirv-mc-target-desc"
 
+#define GET_REGINFO_MC_DESC
+#include "SPIRVGenRegisterInfo.inc"
+
+#define GET_INSTRINFO_MC_DESC
+#include "SPIRVGenInstrInfo.inc"
+
+#define GET_SUBTARGETINFO_MC_DESC
+#include "SPIRVGenSubtargetInfo.inc"
+
+
 static MCAsmInfo *createMCAsmInfo(const MCRegisterInfo & /*MRI*/,
                                   const Triple &TT) {
   return new SPIRVMCAsmInfo(TT);
