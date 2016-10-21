@@ -13,6 +13,7 @@ add_llvm_target(SPIRVCodeGen
   SPIRVAsmPrinter.cpp
   SPIRVFrameLowering.cpp
   SPIRVInstrInfo.cpp
+  SPIRVISelLowering.cpp
   SPIRVMachineFunctionInfo.cpp
   SPIRVRegisterInfo.cpp
   SPIRVSubtarget.cpp

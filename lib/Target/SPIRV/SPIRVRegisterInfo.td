@@ -40,6 +40,8 @@ def F32_0 : SPIRVReg<"%f32.0">;
 def F64_0 : SPIRVReg<"%f64.0">;
 
 def V128_0: SPIRVReg<"%v128">;
+def LP_0: SPIRVReg<"%lp">;
+def TR_0: SPIRVReg<"%TypeRef">;
 
 // The value stack "register". This is an opaque entity which serves to order
 // uses and defs that must remain in LIFO order.
@@ -53,7 +55,8 @@ def ARGUMENTS : SPIRVReg<"ARGUMENTS">;
 //===----------------------------------------------------------------------===//
 //  Register classes
 //===----------------------------------------------------------------------===//
-
+def LogicalPtr : SPIRVRegClass<[i64], 64, (add LP_0)>;
+def TypeRef : SPIRVRegClass<[i64], 64, (add TR_0)>;
 def I32 : SPIRVRegClass<[i32], 32, (add FP32, SP32)>;
 def I64 : SPIRVRegClass<[i64], 64, (add FP64, SP64)>;
 //def F32 : SPIRVRegClass<[f32], 32, (add F32_0)>;

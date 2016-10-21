@@ -40,7 +40,7 @@ SPIRVSubtarget::SPIRVSubtarget(const Triple &TT, const std::string &CPU,
                                const std::string &FS, const TargetMachine &TM)
     : SPIRVGenSubtargetInfo(TT, CPU, FS),
       CPUString(CPU), TargetTriple(TT), FrameLowering(),
-      InstrInfo(initializeSubtargetDependencies(FS)) {}
+      InstrInfo(initializeSubtargetDependencies(FS)), TLInfo(TM, *this)  {}
 
 bool SPIRVSubtarget::enableMachineScheduler() const {
   // Disable the MachineScheduler for now. Even with ShouldTrackPressure set and

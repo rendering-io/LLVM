@@ -41,7 +41,7 @@ class SPIRVSubtarget final : public SPIRVGenSubtargetInfo {
   SPIRVFrameLowering FrameLowering;
   SPIRVInstrInfo InstrInfo;
   //SPIRVSelectionDAGInfo TSInfo;
-  //SPIRVTargetLowering TLInfo;
+  SPIRVTargetLowering TLInfo;
 
   /// Initializes using CPUString and the passed in feature string so that we
   /// can use initializer lists for subtarget initialization.
@@ -60,7 +60,7 @@ public:
     return &FrameLowering;
   }
   const SPIRVTargetLowering *getTargetLowering() const override {
-    return nullptr;//&TLInfo;
+    return &TLInfo;
   }
   const SPIRVInstrInfo *getInstrInfo() const override {
     return &InstrInfo;
