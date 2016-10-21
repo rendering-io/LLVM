@@ -20,16 +20,16 @@
 
 namespace llvm {
 
-//namespace SPIRVISD {
-//
-//enum NodeType : unsigned {
-//  FIRST_NUMBER = ISD::BUILTIN_OP_END,
-//#define HANDLE_NODETYPE(NODE) NODE,
-//#include "SPIRVISD.def"
-//#undef HANDLE_NODETYPE
-//};
-//
-//}  // end namespace SPIRVISD
+namespace SPIRVISD {
+
+enum NodeType : unsigned {
+  FIRST_NUMBER = ISD::BUILTIN_OP_END,
+#define HANDLE_NODETYPE(NODE) NODE,
+#include "SPIRVISD.def"
+#undef HANDLE_NODETYPE
+};
+
+}  // end namespace SPIRVISD
 
 class SPIRVSubtarget;
 class SPIRVTargetMachine;
@@ -43,7 +43,16 @@ class SPIRVTargetLowering final : public TargetLowering {
     LowerCall(CallLoweringInfo &/*CLI*/,
               SmallVectorImpl<SDValue> &/*InVals*/) const override {
     llvm_unreachable("Not Implemented");
-  }  
+  }
+
+  bool CanLowerReturn(CallingConv::ID /*CallConv*/, MachineFunction & /*MF*/,
+    bool /*IsVarArg*/, const SmallVectorImpl<ISD::OutputArg> &Outs,
+    LLVMContext & /*Context*/) const override;
+
+  SDValue LowerReturn(SDValue Chain, CallingConv::ID CallConv, bool /*IsVarArg*/,
+    const SmallVectorImpl<ISD::OutputArg> &Outs,
+    const SmallVectorImpl<SDValue> &OutVals, const SDLoc &DL,
+    SelectionDAG &DAG) const override;
 };
 
 }  // end namespace llvm
