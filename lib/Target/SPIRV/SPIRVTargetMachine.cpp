@@ -12,6 +12,7 @@
 ///
 //===----------------------------------------------------------------------===//
 
+#include "SPIRV.h"
 #include "MCTargetDesc/SPIRVMCTargetDesc.h"
 #include "SPIRVTargetMachine.h"
 #include "SPIRVTargetObjectFile.h"
@@ -104,8 +105,8 @@ void SPIRVPassConfig::addIRPasses() { TargetPassConfig::addIRPasses(); }
 
 bool SPIRVPassConfig::addInstSelector() {
   (void)TargetPassConfig::addInstSelector();
-  //  addPass(
-  //      createSPIRVISelDag(getSPIRVTargetMachine(), getOptLevel()));
+  
+  addPass(createSPIRVISelDag(getSPIRVTargetMachine(), getOptLevel()));
 
   return false;
 }

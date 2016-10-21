@@ -40,7 +40,7 @@ class SPIRVSubtarget final : public SPIRVGenSubtargetInfo {
 
   SPIRVFrameLowering FrameLowering;
   SPIRVInstrInfo InstrInfo;
-  //SPIRVSelectionDAGInfo TSInfo;
+  SPIRVSelectionDAGInfo TSInfo;
   SPIRVTargetLowering TLInfo;
 
   /// Initializes using CPUString and the passed in feature string so that we
@@ -54,7 +54,7 @@ public:
                        const std::string &FS, const TargetMachine &TM);
 
   const SPIRVSelectionDAGInfo *getSelectionDAGInfo() const override {
-    return  nullptr;//&TSInfo;
+    return &TSInfo;
   }
   const SPIRVFrameLowering *getFrameLowering() const override {
     return &FrameLowering;

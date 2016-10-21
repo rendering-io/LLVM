@@ -13,9 +13,11 @@ add_llvm_target(SPIRVCodeGen
   SPIRVAsmPrinter.cpp
   SPIRVFrameLowering.cpp
   SPIRVInstrInfo.cpp
+  SPIRVISelDAGToDAG.cpp
   SPIRVISelLowering.cpp
   SPIRVMachineFunctionInfo.cpp
   SPIRVRegisterInfo.cpp
+  SPIRVSelectionDAGInfo.cpp
   SPIRVSubtarget.cpp
   SPIRVTargetMachine.cpp
   SPIRVTargetObjectFile.cpp

@@ -38,6 +38,12 @@ class SPIRVTargetLowering final : public TargetLowering {
  public:
   SPIRVTargetLowering(const TargetMachine &TM,
                             const SPIRVSubtarget &STI);
+
+  SDValue
+    LowerCall(CallLoweringInfo &/*CLI*/,
+              SmallVectorImpl<SDValue> &/*InVals*/) const override {
+    llvm_unreachable("Not Implemented");
+  }  
 };
 
 }  // end namespace llvm
