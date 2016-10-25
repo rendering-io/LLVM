@@ -101,7 +101,20 @@ FunctionPass *SPIRVPassConfig::createTargetRegisterAllocator(bool) {
 // the CodeGen pass sequence.
 //===----------------------------------------------------------------------===//
 
-void SPIRVPassConfig::addIRPasses() { TargetPassConfig::addIRPasses(); }
+void SPIRVPassConfig::addIRPasses() {
+  // The Prolog/Epilog Inserter pass requires that the register allocator has 
+  // removed all virtual registers, but we never run a register allocator for 
+  // SPIR-V, so this causes a headache.
+  disablePass(&PrologEpilogCodeInserterID);
+  disablePass(&MachineCopyPropagationID);
+  disablePass(&PostRASchedulerID);
+  disablePass(&FuncletLayoutID);
+  disablePass(&StackMapLivenessID);
+  disablePass(&LiveDebugValuesID);
+  disablePass(&PatchableFunctionID);
+  
+  TargetPassConfig::addIRPasses();
+}
 
 bool SPIRVPassConfig::addInstSelector() {
   (void)TargetPassConfig::addInstSelector();
