@@ -39,6 +39,19 @@ SPIRVTargetLowering::SPIRVTargetLowering(
     : TargetLowering(TM) {
 }
 
+const char *SPIRVTargetLowering::getTargetNodeName(unsigned Opcode) const {
+  switch (static_cast<SPIRVISD::NodeType>(Opcode)) {
+    case SPIRVISD::FIRST_NUMBER:
+      break;
+#define HANDLE_NODETYPE(NODE) \
+  case SPIRVISD::NODE:  \
+    return "SPIRVISD::" #NODE;
+#include "SPIRVISD.def"
+#undef HANDLE_NODETYPE
+  }
+  return nullptr;
+}
+
 //===----------------------------------------------------------------------===//
 // SPIRV Lowering private implementation.
 //===----------------------------------------------------------------------===//
@@ -79,6 +92,66 @@ SDValue SPIRVTargetLowering::LowerReturn(
     //if (Out.Flags.isInConsecutiveRegsLast())
     //  fail(DL, DAG, "SPIRV hasn't implemented cons regs last results");
   }
+
+  return Chain;
+}
+
+SDValue SPIRVTargetLowering::LowerFormalArguments(
+    SDValue Chain, CallingConv::ID CallConv, bool IsVarArg,
+    const SmallVectorImpl<ISD::InputArg> &Ins, const SDLoc &DL,
+    SelectionDAG &DAG, SmallVectorImpl<SDValue> &InVals) const {
+  //if (!CallingConvSupported(CallConv))
+  //  fail(DL, DAG, "WebAssembly doesn't support non-C calling conventions");
+
+  MachineFunction &MF = DAG.getMachineFunction();
+  auto *MFI = MF.getInfo<SPIRVFunctionInfo>();
+
+  // Set up the incoming ARGUMENTS value, which serves to represent the liveness
+  // of the incoming values before they're represented by virtual registers.
+  //MF.getRegInfo().addLiveIn(WebAssembly::ARGUMENTS);
+
+  for (const ISD::InputArg &In : Ins) {
+//    if (In.Flags.isInAlloca())
+//      fail(DL, DAG, "WebAssembly hasn't implemented inalloca arguments");
+//    if (In.Flags.isNest())
+//      fail(DL, DAG, "WebAssembly hasn't implemented nest arguments");
+//    if (In.Flags.isInConsecutiveRegs())
+//      fail(DL, DAG, "WebAssembly hasn't implemented cons regs arguments");
+//    if (In.Flags.isInConsecutiveRegsLast())
+//      fail(DL, DAG, "WebAssembly hasn't implemented cons regs last arguments");
+//    // Ignore In.getOrigAlign() because all our arguments are passed in
+//    // registers.
+//    InVals.push_back(
+//        In.Used
+//            ? DAG.getNode(WebAssemblyISD::ARGUMENT, DL, In.VT,
+//                          DAG.getTargetConstant(InVals.size(), DL, MVT::i32))
+//            : DAG.getUNDEF(In.VT));
+
+    // Record the number and types of arguments.
+    //MFI->addParam(In.VT);
+  }
+
+  // Varargs are copied into a buffer allocated by the caller, and a pointer to
+  // the buffer is passed as an argument.
+  if (IsVarArg) {
+//    MVT PtrVT = getPointerTy(MF.getDataLayout());
+//    unsigned VarargVreg =
+//        MF.getRegInfo().createVirtualRegister(getRegClassFor(PtrVT));
+//    MFI->setVarargBufferVreg(VarargVreg);
+//    Chain = DAG.getCopyToReg(
+//        Chain, DL, VarargVreg,
+//        DAG.getNode(WebAssemblyISD::ARGUMENT, DL, PtrVT,
+//                    DAG.getTargetConstant(Ins.size(), DL, MVT::i32)));
+    //MFI->addParam(PtrVT);
+  }
+
+  // Record the number and types of results.
+  SmallVector<MVT, 4> Params;
+  SmallVector<MVT, 4> Results;
+  ComputeSignatureVTs(*MF.getFunction(), DAG.getTarget(), Params, Results);
+  for (MVT VT : Results)
+    //MFI->addResult(VT);
+    ;
 
   return Chain;
 }

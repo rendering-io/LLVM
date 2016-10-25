@@ -39,6 +39,9 @@ class SPIRVTargetLowering final : public TargetLowering {
   SPIRVTargetLowering(const TargetMachine &TM,
                             const SPIRVSubtarget &STI);
 
+  // Returns the name of a target specific SDNode, or null.
+  const char *getTargetNodeName(unsigned Opcode) const override;
+
   SDValue
     LowerCall(CallLoweringInfo &/*CLI*/,
               SmallVectorImpl<SDValue> &/*InVals*/) const override {
@@ -53,6 +56,11 @@ class SPIRVTargetLowering final : public TargetLowering {
     const SmallVectorImpl<ISD::OutputArg> &Outs,
     const SmallVectorImpl<SDValue> &OutVals, const SDLoc &DL,
     SelectionDAG &DAG) const override;
+  SDValue LowerFormalArguments(SDValue Chain, CallingConv::ID CallConv,
+                               bool IsVarArg,
+                               const SmallVectorImpl<ISD::InputArg> &Ins,
+                               const SDLoc &DL, SelectionDAG &DAG,
+                               SmallVectorImpl<SDValue> &InVals) const override;  
 };
 
 }  // end namespace llvm

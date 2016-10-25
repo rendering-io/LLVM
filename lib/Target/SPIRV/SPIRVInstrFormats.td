@@ -35,8 +35,6 @@ foreach i = 0-4 in {
 //===----------------------------------------------------------------------===//
 def Int64Regs : SPIRVRegClass<[i64], 64, (add (sequence "RL%u", 0, 4))>;
 
-
-
 // SPIRV Instruction Format.
 class SPIRVInst<dag outs, dag ins, 
                 bits<32> inst,
