@@ -148,7 +148,7 @@ SDValue SPIRVTargetLowering::LowerFormalArguments(
   // Record the number and types of results.
   SmallVector<MVT, 4> Params;
   SmallVector<MVT, 4> Results;
-  ComputeSignatureVTs(*MF.getFunction(), DAG.getTarget(), Params, Results);
+//  ComputeSignatureVTs(*MF.getFunction(), DAG.getTarget(), Params, Results);
   for (MVT VT : Results)
     //MFI->addResult(VT);
     ;

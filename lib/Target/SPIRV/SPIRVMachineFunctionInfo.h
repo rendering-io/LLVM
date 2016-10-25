@@ -30,12 +30,12 @@ public:
   ~SPIRVFunctionInfo() override;
 };
 
-void ComputeLegalValueVTs(const Function &F, const TargetMachine &TM,
-                          Type *Ty, SmallVectorImpl<MVT> &ValueVTs);
+//void ComputeLegalValueVTs(const Function &F, const TargetMachine &TM,
+  //                        Type *Ty, SmallVectorImpl<MVT> &ValueVTs);
 
-void ComputeSignatureVTs(const Function &F, const TargetMachine &TM,
-                         SmallVectorImpl<MVT> &Params,
-                         SmallVectorImpl<MVT> &Results);
+//void ComputeSignatureVTs(const Function &F, const TargetMachine &TM,
+  //                       SmallVectorImpl<MVT> &Params,
+    //                     SmallVectorImpl<MVT> &Results);
 
 } // end namespace llvm
 

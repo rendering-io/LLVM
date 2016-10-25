@@ -14,6 +14,7 @@
 
 #include "SPIRVMCTargetDesc.h"
 #include "SPIRVMCAsmInfo.h"
+#include "SPIRVTargetStreamer.h"
 #include "InstPrinter/SPIRVInstPrinter.h"
 #include "llvm/Support/TargetRegistry.h"
 
@@ -59,6 +60,13 @@ static MCAsmBackend *createAsmBackend(const Target & /*T*/,
   return createSPIRVAsmBackend(TT);
 }
 
+static MCTargetStreamer *createAsmTargetStreamer(MCStreamer &S,
+                                                 formatted_raw_ostream &OS,
+                                                 MCInstPrinter * /*InstPrint*/,
+                                                 bool /*isVerboseAsm*/) {
+  return new SPIRVTargetAsmStreamer(S, OS);
+}
+
 // Force static initialization.
 extern "C" void LLVMInitializeSPIRVTargetMC() {
   for (Target *T : {&getTheSPIRVTarget()}) {
@@ -73,5 +81,8 @@ extern "C" void LLVMInitializeSPIRVTargetMC() {
 
     // Register the ASM Backend.
     TargetRegistry::RegisterMCAsmBackend(*T, createAsmBackend);
+
+    // Register the asm target streamer.
+    TargetRegistry::RegisterAsmTargetStreamer(*T, createAsmTargetStreamer);    
   }
 }

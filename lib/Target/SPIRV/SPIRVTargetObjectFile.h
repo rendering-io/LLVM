@@ -22,26 +22,20 @@ namespace llvm {
 
 class SPIRVTargetObjectFile final : public TargetLoweringObjectFile {
 public:
+  SPIRVTargetObjectFile();
+  virtual ~SPIRVTargetObjectFile();
+
   void Initialize(MCContext &Ctx, const TargetMachine &TM) override;
 
   MCSection *getSectionForConstant(const DataLayout &DL, SectionKind Kind,
                                    const Constant *C,
-                                   unsigned &Align) const override {
-    assert(false && "getSectionForConstant not implemented.");
-    return nullptr;
-  }
+                                   unsigned &Align) const override;
 
   MCSection *getExplicitSectionGlobal(const GlobalValue *GV, SectionKind Kind,
-                                      const TargetMachine &TM) const override {
-    assert(false && "getExplicitSectionGlobal not implemented.");
-    return nullptr;
-  }
+                                      const TargetMachine &TM) const override;
 
   MCSection *SelectSectionForGlobal(const GlobalValue *GV, SectionKind Kind,
-                                    const TargetMachine &TM) const override {
-    assert(false && "SelectSectionForGlobal not implemented.");
-    return nullptr;
-  }  
+                                    const TargetMachine &TM) const override;
 };
 
 } // end namespace llvm
