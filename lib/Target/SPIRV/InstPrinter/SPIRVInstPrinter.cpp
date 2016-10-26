@@ -30,7 +30,7 @@ using namespace llvm;
 
 #define DEBUG_TYPE "asm-printer"
 
-//#include "SPIRVGenAsmWriter.inc"
+#include "SPIRVGenAsmWriter.inc"
 
 SPIRVInstPrinter::SPIRVInstPrinter(const MCAsmInfo &MAI, const MCInstrInfo &MII,
                                    const MCRegisterInfo &MRI)
@@ -40,7 +40,22 @@ void SPIRVInstPrinter::printRegName(raw_ostream &OS, unsigned RegNo) const {}
 
 void SPIRVInstPrinter::printInst(const MCInst *MI, raw_ostream &OS,
                                  StringRef Annot,
-                                 const MCSubtargetInfo & /*STI*/) {}
+                                 const MCSubtargetInfo & /*STI*/) {
+  // Print the instruction (this uses the AsmStrings from the .td files).
+  printInstruction(MI, OS);
+
+  // Print any additional variadic operands.
+//  const MCInstrDesc &Desc = MII.get(MI->getOpcode());
+//  if (Desc.isVariadic())
+//    for (auto i = Desc.getNumOperands(), e = MI->getNumOperands(); i < e; ++i) {
+//      if (i != 0)
+//        OS << ", ";
+//      printOperand(MI, i, OS);
+//    }
+
+  // Print any added annotation.
+  printAnnotation(OS, Annot);
+}
 
 void SPIRVInstPrinter::printOperand(const MCInst *MI, unsigned OpNo,
                                     raw_ostream &O) {}
