@@ -144,6 +144,16 @@ void SPIRVAsmPrinter::EmitFunctionBodyEnd() {
 
 void SPIRVAsmPrinter::EmitInstruction(const MachineInstr *MI) {
   DEBUG(dbgs() << "EmitInstruction: " << *MI << '\n');
+
+  switch (MI->getOpcode()) {
+    default: {
+      SPIRVMCInstLower MCInstLowering(OutContext, *this);
+      MCInst TmpInst;
+      MCInstLowering.Lower(MI, TmpInst);
+      EmitToStreamer(*OutStreamer, TmpInst);
+      break;
+    }
+  }
 }
 
 const MCExpr *SPIRVAsmPrinter::lowerConstant(const Constant *CV) {

@@ -16,6 +16,7 @@ add_llvm_target(SPIRVCodeGen
   SPIRVISelDAGToDAG.cpp
   SPIRVISelLowering.cpp
   SPIRVMachineFunctionInfo.cpp
+  SPIRVMCInstLower.cpp
   SPIRVRegisterInfo.cpp
   SPIRVSelectionDAGInfo.cpp
   SPIRVSubtarget.cpp
