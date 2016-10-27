@@ -15,9 +15,16 @@
 let isTerminator = 1, hasCtrlDep = 1, isBarrier = 1 in {
 
 let isReturn = 1 in {
-  def RETURN_VOID : SPIRVInst<(outs), (ins), 0, "return", [(SPIRVReturn)]>;
+//  def RETURN_VOID : SPIRVInst<(outs), (ins), 0, "return", [(SPIRVReturn)]>;
+
+  def Return : SPIRVInst<OpReturn,
+                         (outs), (ins),
+                         [(SPIRVReturn)]>;
+  def Return2 : SPIRVInst<OpReturn,
+                         (outs), (ins),
+                         []>;
 } // isReturn = 1
 
-def UNREACHABLE : SPIRVInst<(outs), (ins), 0, "unreachable", [(trap)]>;
+//def UNREACHABLE : SPIRVInst<(outs), (ins), 0, "unreachable", [(trap)]>;
 
 } // isTerminator = 1, hasCtrlDep = 1, isBarrier = 1

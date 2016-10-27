@@ -12,6 +12,878 @@
 ///
 //===----------------------------------------------------------------------===//
 
+//===----------------------------------------------------------------------===//
+//  Enum definitions, auto generated with SPIRVMetaGen.py
+//===----------------------------------------------------------------------===//
+class SourceLanguage<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def SourceLanguageESSL: SourceLanguage<1, "ESSL"> {}
+def SourceLanguageUnknown: SourceLanguage<0, "Unknown"> {}
+def SourceLanguageOpenCL_C: SourceLanguage<3, "OpenCL_C"> {}
+def SourceLanguageGLSL: SourceLanguage<2, "GLSL"> {}
+def SourceLanguageOpenCL_CPP: SourceLanguage<4, "OpenCL_CPP"> {}
+
+class ExecutionModel<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ExecutionModelTessellationControl: ExecutionModel<1, "TessellationControl"> {}
+def ExecutionModelKernel: ExecutionModel<6, "Kernel"> {}
+def ExecutionModelVertex: ExecutionModel<0, "Vertex"> {}
+def ExecutionModelFragment: ExecutionModel<4, "Fragment"> {}
+def ExecutionModelTessellationEvaluation: ExecutionModel<2, "TessellationEvaluation"> {}
+def ExecutionModelGLCompute: ExecutionModel<5, "GLCompute"> {}
+def ExecutionModelGeometry: ExecutionModel<3, "Geometry"> {}
+
+class AddressingModel<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def AddressingModelPhysical32: AddressingModel<1, "Physical32"> {}
+def AddressingModelLogical: AddressingModel<0, "Logical"> {}
+def AddressingModelPhysical64: AddressingModel<2, "Physical64"> {}
+
+class MemoryModel<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def MemoryModelSimple: MemoryModel<0, "Simple"> {}
+def MemoryModelGLSL450: MemoryModel<1, "GLSL450"> {}
+def MemoryModelOpenCL: MemoryModel<2, "OpenCL"> {}
+
+class ExecutionMode<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ExecutionModeInputLines: ExecutionMode<20, "InputLines"> {}
+def ExecutionModeTriangles: ExecutionMode<22, "Triangles"> {}
+def ExecutionModeSubgroupsPerWorkgroup: ExecutionMode<36, "SubgroupsPerWorkgroup"> {}
+def ExecutionModeOutputLineStrip: ExecutionMode<28, "OutputLineStrip"> {}
+def ExecutionModeDepthUnchanged: ExecutionMode<16, "DepthUnchanged"> {}
+def ExecutionModeInvocations: ExecutionMode<0, "Invocations"> {}
+def ExecutionModeDepthLess: ExecutionMode<15, "DepthLess"> {}
+def ExecutionModeLocalSize: ExecutionMode<17, "LocalSize"> {}
+def ExecutionModeInputTrianglesAdjacency: ExecutionMode<23, "InputTrianglesAdjacency"> {}
+def ExecutionModeOriginUpperLeft: ExecutionMode<7, "OriginUpperLeft"> {}
+def ExecutionModeFinalizer: ExecutionMode<34, "Finalizer"> {}
+def ExecutionModeInputPoints: ExecutionMode<19, "InputPoints"> {}
+def ExecutionModeEarlyFragmentTests: ExecutionMode<9, "EarlyFragmentTests"> {}
+def ExecutionModeVertexOrderCcw: ExecutionMode<5, "VertexOrderCcw"> {}
+def ExecutionModeVertexOrderCw: ExecutionMode<4, "VertexOrderCw"> {}
+def ExecutionModeIsolines: ExecutionMode<25, "Isolines"> {}
+def ExecutionModeInputLinesAdjacency: ExecutionMode<21, "InputLinesAdjacency"> {}
+def ExecutionModeOutputVertices: ExecutionMode<26, "OutputVertices"> {}
+def ExecutionModeOutputPoints: ExecutionMode<27, "OutputPoints"> {}
+def ExecutionModeSpacingEqual: ExecutionMode<1, "SpacingEqual"> {}
+def ExecutionModeOutputTriangleStrip: ExecutionMode<29, "OutputTriangleStrip"> {}
+def ExecutionModeDepthReplacing: ExecutionMode<12, "DepthReplacing"> {}
+def ExecutionModePointMode: ExecutionMode<10, "PointMode"> {}
+def ExecutionModeContractionOff: ExecutionMode<31, "ContractionOff"> {}
+def ExecutionModeDepthGreater: ExecutionMode<14, "DepthGreater"> {}
+def ExecutionModeSubgroupSize: ExecutionMode<35, "SubgroupSize"> {}
+def ExecutionModeOriginLowerLeft: ExecutionMode<8, "OriginLowerLeft"> {}
+def ExecutionModeXfb: ExecutionMode<11, "Xfb"> {}
+def ExecutionModeQuads: ExecutionMode<24, "Quads"> {}
+def ExecutionModeSpacingFractionalEven: ExecutionMode<2, "SpacingFractionalEven"> {}
+def ExecutionModeSpacingFractionalOdd: ExecutionMode<3, "SpacingFractionalOdd"> {}
+def ExecutionModeInitializer: ExecutionMode<33, "Initializer"> {}
+def ExecutionModePixelCenterInteger: ExecutionMode<6, "PixelCenterInteger"> {}
+def ExecutionModeVecTypeHint: ExecutionMode<30, "VecTypeHint"> {}
+def ExecutionModeLocalSizeHint: ExecutionMode<18, "LocalSizeHint"> {}
+
+class StorageClass<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def StorageClassGeneric: StorageClass<8, "Generic"> {}
+def StorageClassCrossWorkgroup: StorageClass<5, "CrossWorkgroup"> {}
+def StorageClassInput: StorageClass<1, "Input"> {}
+def StorageClassPushConstant: StorageClass<9, "PushConstant"> {}
+def StorageClassOutput: StorageClass<3, "Output"> {}
+def StorageClassUniformConstant: StorageClass<0, "UniformConstant"> {}
+def StorageClassImage: StorageClass<11, "Image"> {}
+def StorageClassPrivate: StorageClass<6, "Private"> {}
+def StorageClassAtomicCounter: StorageClass<10, "AtomicCounter"> {}
+def StorageClassUniform: StorageClass<2, "Uniform"> {}
+def StorageClassWorkgroup: StorageClass<4, "Workgroup"> {}
+def StorageClassFunction: StorageClass<7, "Function"> {}
+
+class Dim<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def DimDim2D: Dim<1, "Dim2D"> {}
+def DimSubpassData: Dim<6, "SubpassData"> {}
+def DimRect: Dim<4, "Rect"> {}
+def DimBuffer: Dim<5, "Buffer"> {}
+def DimDim1D: Dim<0, "Dim1D"> {}
+def DimDim3D: Dim<2, "Dim3D"> {}
+def DimCube: Dim<3, "Cube"> {}
+
+class SamplerAddressingMode<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def SamplerAddressingModeRepeat: SamplerAddressingMode<3, "Repeat"> {}
+def SamplerAddressingModeClamp: SamplerAddressingMode<2, "Clamp"> {}
+def SamplerAddressingModeClampToEdge: SamplerAddressingMode<1, "ClampToEdge"> {}
+def SamplerAddressingModeNone: SamplerAddressingMode<0, "None"> {}
+def SamplerAddressingModeRepeatMirrored: SamplerAddressingMode<4, "RepeatMirrored"> {}
+
+class SamplerFilterMode<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def SamplerFilterModeLinear: SamplerFilterMode<1, "Linear"> {}
+def SamplerFilterModeNearest: SamplerFilterMode<0, "Nearest"> {}
+
+class ImageFormat<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ImageFormatRgba32i: ImageFormat<21, "Rgba32i"> {}
+def ImageFormatR8ui: ImageFormat<39, "R8ui"> {}
+def ImageFormatRgba16: ImageFormat<10, "Rgba16"> {}
+def ImageFormatRg16Snorm: ImageFormat<17, "Rg16Snorm"> {}
+def ImageFormatRg32i: ImageFormat<25, "Rg32i"> {}
+def ImageFormatUnknown: ImageFormat<0, "Unknown"> {}
+def ImageFormatRgba8i: ImageFormat<23, "Rgba8i"> {}
+def ImageFormatRg16: ImageFormat<12, "Rg16"> {}
+def ImageFormatR8Snorm: ImageFormat<20, "R8Snorm"> {}
+def ImageFormatRg16i: ImageFormat<26, "Rg16i"> {}
+def ImageFormatR16ui: ImageFormat<38, "R16ui"> {}
+def ImageFormatRgba16ui: ImageFormat<31, "Rgba16ui"> {}
+def ImageFormatRgba32f: ImageFormat<1, "Rgba32f"> {}
+def ImageFormatR16: ImageFormat<14, "R16"> {}
+def ImageFormatR16i: ImageFormat<28, "R16i"> {}
+def ImageFormatRg8ui: ImageFormat<37, "Rg8ui"> {}
+def ImageFormatRg16f: ImageFormat<7, "Rg16f"> {}
+def ImageFormatR16f: ImageFormat<9, "R16f"> {}
+def ImageFormatRg16ui: ImageFormat<36, "Rg16ui"> {}
+def ImageFormatRgba32ui: ImageFormat<30, "Rgba32ui"> {}
+def ImageFormatRgb10a2ui: ImageFormat<34, "Rgb10a2ui"> {}
+def ImageFormatRg8: ImageFormat<13, "Rg8"> {}
+def ImageFormatRgba8: ImageFormat<4, "Rgba8"> {}
+def ImageFormatRgba16i: ImageFormat<22, "Rgba16i"> {}
+def ImageFormatR32i: ImageFormat<24, "R32i"> {}
+def ImageFormatRgba16Snorm: ImageFormat<16, "Rgba16Snorm"> {}
+def ImageFormatRg8Snorm: ImageFormat<18, "Rg8Snorm"> {}
+def ImageFormatRgba16f: ImageFormat<2, "Rgba16f"> {}
+def ImageFormatR8i: ImageFormat<29, "R8i"> {}
+def ImageFormatR32f: ImageFormat<3, "R32f"> {}
+def ImageFormatRg32ui: ImageFormat<35, "Rg32ui"> {}
+def ImageFormatRgb10A2: ImageFormat<11, "Rgb10A2"> {}
+def ImageFormatR8: ImageFormat<15, "R8"> {}
+def ImageFormatRgba8Snorm: ImageFormat<5, "Rgba8Snorm"> {}
+def ImageFormatRg32f: ImageFormat<6, "Rg32f"> {}
+def ImageFormatR11fG11fB10f: ImageFormat<8, "R11fG11fB10f"> {}
+def ImageFormatRg8i: ImageFormat<27, "Rg8i"> {}
+def ImageFormatR32ui: ImageFormat<33, "R32ui"> {}
+def ImageFormatRgba8ui: ImageFormat<32, "Rgba8ui"> {}
+def ImageFormatR16Snorm: ImageFormat<19, "R16Snorm"> {}
+
+class ImageChannelOrder<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ImageChannelOrdersRGBA: ImageChannelOrder<17, "sRGBA"> {}
+def ImageChannelOrderRG: ImageChannelOrder<2, "RG"> {}
+def ImageChannelOrderABGR: ImageChannelOrder<19, "ABGR"> {}
+def ImageChannelOrderR: ImageChannelOrder<0, "R"> {}
+def ImageChannelOrderA: ImageChannelOrder<1, "A"> {}
+def ImageChannelOrderIntensity: ImageChannelOrder<8, "Intensity"> {}
+def ImageChannelOrderRGx: ImageChannelOrder<11, "RGx"> {}
+def ImageChannelOrderLuminance: ImageChannelOrder<9, "Luminance"> {}
+def ImageChannelOrderRx: ImageChannelOrder<10, "Rx"> {}
+def ImageChannelOrderBGRA: ImageChannelOrder<6, "BGRA"> {}
+def ImageChannelOrdersRGBx: ImageChannelOrder<16, "sRGBx"> {}
+def ImageChannelOrderRGB: ImageChannelOrder<4, "RGB"> {}
+def ImageChannelOrderRGBx: ImageChannelOrder<12, "RGBx"> {}
+def ImageChannelOrderDepth: ImageChannelOrder<13, "Depth"> {}
+def ImageChannelOrderARGB: ImageChannelOrder<7, "ARGB"> {}
+def ImageChannelOrderDepthStencil: ImageChannelOrder<14, "DepthStencil"> {}
+def ImageChannelOrdersRGB: ImageChannelOrder<15, "sRGB"> {}
+def ImageChannelOrderRGBA: ImageChannelOrder<5, "RGBA"> {}
+def ImageChannelOrdersBGRA: ImageChannelOrder<18, "sBGRA"> {}
+def ImageChannelOrderRA: ImageChannelOrder<3, "RA"> {}
+
+class ImageChannelDataType<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ImageChannelDataTypeUnormInt16: ImageChannelDataType<3, "UnormInt16"> {}
+def ImageChannelDataTypeUnsignedInt16: ImageChannelDataType<11, "UnsignedInt16"> {}
+def ImageChannelDataTypeSignedInt16: ImageChannelDataType<8, "SignedInt16"> {}
+def ImageChannelDataTypeUnormInt101010_2: ImageChannelDataType<16, "UnormInt101010_2"> {}
+def ImageChannelDataTypeUnormShort555: ImageChannelDataType<5, "UnormShort555"> {}
+def ImageChannelDataTypeHalfFloat: ImageChannelDataType<13, "HalfFloat"> {}
+def ImageChannelDataTypeUnormShort565: ImageChannelDataType<4, "UnormShort565"> {}
+def ImageChannelDataTypeSnormInt8: ImageChannelDataType<0, "SnormInt8"> {}
+def ImageChannelDataTypeUnormInt101010: ImageChannelDataType<6, "UnormInt101010"> {}
+def ImageChannelDataTypeUnormInt8: ImageChannelDataType<2, "UnormInt8"> {}
+def ImageChannelDataTypeUnormInt24: ImageChannelDataType<15, "UnormInt24"> {}
+def ImageChannelDataTypeSignedInt8: ImageChannelDataType<7, "SignedInt8"> {}
+def ImageChannelDataTypeSnormInt16: ImageChannelDataType<1, "SnormInt16"> {}
+def ImageChannelDataTypeSignedInt32: ImageChannelDataType<9, "SignedInt32"> {}
+def ImageChannelDataTypeUnsignedInt32: ImageChannelDataType<12, "UnsignedInt32"> {}
+def ImageChannelDataTypeUnsignedInt8: ImageChannelDataType<10, "UnsignedInt8"> {}
+def ImageChannelDataTypeFloat: ImageChannelDataType<14, "Float"> {}
+
+class ImageOperands<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ImageOperandsGrad: ImageOperands<2, "Grad"> {}
+def ImageOperandsSample: ImageOperands<6, "Sample"> {}
+def ImageOperandsConstOffset: ImageOperands<3, "ConstOffset"> {}
+def ImageOperandsBias: ImageOperands<0, "Bias"> {}
+def ImageOperandsMinLod: ImageOperands<7, "MinLod"> {}
+def ImageOperandsOffset: ImageOperands<4, "Offset"> {}
+def ImageOperandsConstOffsets: ImageOperands<5, "ConstOffsets"> {}
+def ImageOperandsLod: ImageOperands<1, "Lod"> {}
+
+class FPFastMathMode<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def FPFastMathModeAllowRecip: FPFastMathMode<3, "AllowRecip"> {}
+def FPFastMathModeFast: FPFastMathMode<4, "Fast"> {}
+def FPFastMathModeNotInf: FPFastMathMode<1, "NotInf"> {}
+def FPFastMathModeNSZ: FPFastMathMode<2, "NSZ"> {}
+def FPFastMathModeNotNaN: FPFastMathMode<0, "NotNaN"> {}
+
+class FPRoundingMode<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def FPRoundingModeRTE: FPRoundingMode<0, "RTE"> {}
+def FPRoundingModeRTN: FPRoundingMode<3, "RTN"> {}
+def FPRoundingModeRTP: FPRoundingMode<2, "RTP"> {}
+def FPRoundingModeRTZ: FPRoundingMode<1, "RTZ"> {}
+
+class LinkageType<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def LinkageTypeExport: LinkageType<0, "Export"> {}
+def LinkageTypeImport: LinkageType<1, "Import"> {}
+
+class AccessQualifier<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def AccessQualifierReadOnly: AccessQualifier<0, "ReadOnly"> {}
+def AccessQualifierReadWrite: AccessQualifier<2, "ReadWrite"> {}
+def AccessQualifierWriteOnly: AccessQualifier<1, "WriteOnly"> {}
+
+class FunctionParameterAttribute<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def FunctionParameterAttributeSext: FunctionParameterAttribute<1, "Sext"> {}
+def FunctionParameterAttributeNoAlias: FunctionParameterAttribute<4, "NoAlias"> {}
+def FunctionParameterAttributeNoWrite: FunctionParameterAttribute<6, "NoWrite"> {}
+def FunctionParameterAttributeNoCapture: FunctionParameterAttribute<5, "NoCapture"> {}
+def FunctionParameterAttributeSret: FunctionParameterAttribute<3, "Sret"> {}
+def FunctionParameterAttributeNoReadWrite: FunctionParameterAttribute<7, "NoReadWrite"> {}
+def FunctionParameterAttributeZext: FunctionParameterAttribute<0, "Zext"> {}
+def FunctionParameterAttributeByVal: FunctionParameterAttribute<2, "ByVal"> {}
+
+class Decoration<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def DecorationArrayStride: Decoration<6, "ArrayStride"> {}
+def DecorationBufferBlock: Decoration<3, "BufferBlock"> {}
+def DecorationSample: Decoration<17, "Sample"> {}
+def DecorationLinkageAttributes: Decoration<41, "LinkageAttributes"> {}
+def DecorationAlignment: Decoration<44, "Alignment"> {}
+def DecorationNonWritable: Decoration<24, "NonWritable"> {}
+def DecorationSpecId: Decoration<1, "SpecId"> {}
+def DecorationXfbStride: Decoration<37, "XfbStride"> {}
+def DecorationVolatile: Decoration<21, "Volatile"> {}
+def DecorationStream: Decoration<29, "Stream"> {}
+def DecorationBinding: Decoration<33, "Binding"> {}
+def DecorationGLSLShared: Decoration<8, "GLSLShared"> {}
+def DecorationColMajor: Decoration<5, "ColMajor"> {}
+def DecorationRowMajor: Decoration<4, "RowMajor"> {}
+def DecorationBlock: Decoration<2, "Block"> {}
+def DecorationDescriptorSet: Decoration<34, "DescriptorSet"> {}
+def DecorationInputAttachmentIndex: Decoration<43, "InputAttachmentIndex"> {}
+def DecorationFPRoundingMode: Decoration<39, "FPRoundingMode"> {}
+def DecorationNoContraction: Decoration<42, "NoContraction"> {}
+def DecorationOffset: Decoration<35, "Offset"> {}
+def DecorationInvariant: Decoration<18, "Invariant"> {}
+def DecorationComponent: Decoration<31, "Component"> {}
+def DecorationXfbBuffer: Decoration<36, "XfbBuffer"> {}
+def DecorationCoherent: Decoration<23, "Coherent"> {}
+def DecorationBuiltIn: Decoration<11, "BuiltIn"> {}
+def DecorationNoPerspective: Decoration<13, "NoPerspective"> {}
+def DecorationAliased: Decoration<20, "Aliased"> {}
+def DecorationCentroid: Decoration<16, "Centroid"> {}
+def DecorationLocation: Decoration<30, "Location"> {}
+def DecorationIndex: Decoration<32, "Index"> {}
+def DecorationRelaxedPrecision: Decoration<0, "RelaxedPrecision"> {}
+def DecorationFlat: Decoration<14, "Flat"> {}
+def DecorationFuncParamAttr: Decoration<38, "FuncParamAttr"> {}
+def DecorationSaturatedConversion: Decoration<28, "SaturatedConversion"> {}
+def DecorationGLSLPacked: Decoration<9, "GLSLPacked"> {}
+def DecorationRestrict: Decoration<19, "Restrict"> {}
+def DecorationConstant: Decoration<22, "Constant"> {}
+def DecorationMaxByteOffset: Decoration<45, "MaxByteOffset"> {}
+def DecorationCPacked: Decoration<10, "CPacked"> {}
+def DecorationPatch: Decoration<15, "Patch"> {}
+def DecorationNonReadable: Decoration<25, "NonReadable"> {}
+def DecorationUniform: Decoration<26, "Uniform"> {}
+def DecorationMatrixStride: Decoration<7, "MatrixStride"> {}
+def DecorationFPFastMathMode: Decoration<40, "FPFastMathMode"> {}
+
+class BuiltIn<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def BuiltInSubgroupId: BuiltIn<40, "SubgroupId"> {}
+def BuiltInSubgroupLtMaskKHR: BuiltIn<4420, "SubgroupLtMaskKHR"> {}
+def BuiltInSubgroupLeMaskKHR: BuiltIn<4419, "SubgroupLeMaskKHR"> {}
+def BuiltInSampleMask: BuiltIn<20, "SampleMask"> {}
+def BuiltInNumSubgroups: BuiltIn<38, "NumSubgroups"> {}
+def BuiltInSubgroupGtMaskKHR: BuiltIn<4418, "SubgroupGtMaskKHR"> {}
+def BuiltInWorkDim: BuiltIn<30, "WorkDim"> {}
+def BuiltInNumWorkgroups: BuiltIn<24, "NumWorkgroups"> {}
+def BuiltInInstanceIndex: BuiltIn<43, "InstanceIndex"> {}
+def BuiltInPosition: BuiltIn<0, "Position"> {}
+def BuiltInDrawIndex: BuiltIn<4426, "DrawIndex"> {}
+def BuiltInHelperInvocation: BuiltIn<23, "HelperInvocation"> {}
+def BuiltInTessLevelOuter: BuiltIn<11, "TessLevelOuter"> {}
+def BuiltInSubgroupGeMaskKHR: BuiltIn<4417, "SubgroupGeMaskKHR"> {}
+def BuiltInFragCoord: BuiltIn<15, "FragCoord"> {}
+def BuiltInLayer: BuiltIn<9, "Layer"> {}
+def BuiltInSubgroupEqMaskKHR: BuiltIn<4416, "SubgroupEqMaskKHR"> {}
+def BuiltInSubgroupSize: BuiltIn<36, "SubgroupSize"> {}
+def BuiltInSubgroupMaxSize: BuiltIn<37, "SubgroupMaxSize"> {}
+def BuiltInCullDistance: BuiltIn<4, "CullDistance"> {}
+def BuiltInPatchVertices: BuiltIn<14, "PatchVertices"> {}
+def BuiltInWorkgroupSize: BuiltIn<25, "WorkgroupSize"> {}
+def BuiltInGlobalLinearId: BuiltIn<34, "GlobalLinearId"> {}
+def BuiltInVertexId: BuiltIn<5, "VertexId"> {}
+def BuiltInGlobalOffset: BuiltIn<33, "GlobalOffset"> {}
+def BuiltInTessCoord: BuiltIn<13, "TessCoord"> {}
+def BuiltInViewportIndex: BuiltIn<10, "ViewportIndex"> {}
+def BuiltInPrimitiveId: BuiltIn<7, "PrimitiveId"> {}
+def BuiltInFrontFacing: BuiltIn<17, "FrontFacing"> {}
+def BuiltInNumEnqueuedSubgroups: BuiltIn<39, "NumEnqueuedSubgroups"> {}
+def BuiltInSampleId: BuiltIn<18, "SampleId"> {}
+def BuiltInInvocationId: BuiltIn<8, "InvocationId"> {}
+def BuiltInWorkgroupId: BuiltIn<26, "WorkgroupId"> {}
+def BuiltInVertexIndex: BuiltIn<42, "VertexIndex"> {}
+def BuiltInSamplePosition: BuiltIn<19, "SamplePosition"> {}
+def BuiltInGlobalInvocationId: BuiltIn<28, "GlobalInvocationId"> {}
+def BuiltInGlobalSize: BuiltIn<31, "GlobalSize"> {}
+def BuiltInInstanceId: BuiltIn<6, "InstanceId"> {}
+def BuiltInEnqueuedWorkgroupSize: BuiltIn<32, "EnqueuedWorkgroupSize"> {}
+def BuiltInPointSize: BuiltIn<1, "PointSize"> {}
+def BuiltInFragDepth: BuiltIn<22, "FragDepth"> {}
+def BuiltInSubgroupLocalInvocationId: BuiltIn<41, "SubgroupLocalInvocationId"> {}
+def BuiltInClipDistance: BuiltIn<3, "ClipDistance"> {}
+def BuiltInBaseVertex: BuiltIn<4424, "BaseVertex"> {}
+def BuiltInTessLevelInner: BuiltIn<12, "TessLevelInner"> {}
+def BuiltInPointCoord: BuiltIn<16, "PointCoord"> {}
+def BuiltInLocalInvocationId: BuiltIn<27, "LocalInvocationId"> {}
+def BuiltInBaseInstance: BuiltIn<4425, "BaseInstance"> {}
+def BuiltInLocalInvocationIndex: BuiltIn<29, "LocalInvocationIndex"> {}
+
+class SelectionControl<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def SelectionControlDontFlatten: SelectionControl<1, "DontFlatten"> {}
+def SelectionControlFlatten: SelectionControl<0, "Flatten"> {}
+
+class LoopControl<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def LoopControlUnroll: LoopControl<0, "Unroll"> {}
+def LoopControlDontUnroll: LoopControl<1, "DontUnroll"> {}
+def LoopControlDependencyLength: LoopControl<3, "DependencyLength"> {}
+def LoopControlDependencyInfinite: LoopControl<2, "DependencyInfinite"> {}
+
+class FunctionControl<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def FunctionControlPure: FunctionControl<2, "Pure"> {}
+def FunctionControlDontInline: FunctionControl<1, "DontInline"> {}
+def FunctionControlConst: FunctionControl<3, "Const"> {}
+def FunctionControlInline: FunctionControl<0, "Inline"> {}
+
+class MemorySemantics<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def MemorySemanticsImageMemory: MemorySemantics<11, "ImageMemory"> {}
+def MemorySemanticsUniformMemory: MemorySemantics<6, "UniformMemory"> {}
+def MemorySemanticsAtomicCounterMemory: MemorySemantics<10, "AtomicCounterMemory"> {}
+def MemorySemanticsRelease: MemorySemantics<2, "Release"> {}
+def MemorySemanticsSubgroupMemory: MemorySemantics<7, "SubgroupMemory"> {}
+def MemorySemanticsAcquire: MemorySemantics<1, "Acquire"> {}
+def MemorySemanticsAcquireRelease: MemorySemantics<3, "AcquireRelease"> {}
+def MemorySemanticsSequentiallyConsistent: MemorySemantics<4, "SequentiallyConsistent"> {}
+def MemorySemanticsWorkgroupMemory: MemorySemantics<8, "WorkgroupMemory"> {}
+def MemorySemanticsCrossWorkgroupMemory: MemorySemantics<9, "CrossWorkgroupMemory"> {}
+
+class MemoryAccess<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def MemoryAccessVolatile: MemoryAccess<0, "Volatile"> {}
+def MemoryAccessAligned: MemoryAccess<1, "Aligned"> {}
+def MemoryAccessNontemporal: MemoryAccess<2, "Nontemporal"> {}
+
+class Scope<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def ScopeInvocation: Scope<4, "Invocation"> {}
+def ScopeCrossDevice: Scope<0, "CrossDevice"> {}
+def ScopeWorkgroup: Scope<2, "Workgroup"> {}
+def ScopeDevice: Scope<1, "Device"> {}
+def ScopeSubgroup: Scope<3, "Subgroup"> {}
+
+class GroupOperation<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def GroupOperationInclusiveScan: GroupOperation<1, "InclusiveScan"> {}
+def GroupOperationExclusiveScan: GroupOperation<2, "ExclusiveScan"> {}
+def GroupOperationReduce: GroupOperation<0, "Reduce"> {}
+
+class KernelEnqueueFlags<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def KernelEnqueueFlagsWaitKernel: KernelEnqueueFlags<1, "WaitKernel"> {}
+def KernelEnqueueFlagsWaitWorkGroup: KernelEnqueueFlags<2, "WaitWorkGroup"> {}
+def KernelEnqueueFlagsNoWait: KernelEnqueueFlags<0, "NoWait"> {}
+
+class KernelProfilingInfo<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def KernelProfilingInfoCmdExecTime: KernelProfilingInfo<0, "CmdExecTime"> {}
+
+class Capability<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def CapabilityImageMipmap: Capability<15, "ImageMipmap"> {}
+def CapabilityStorageImageArrayDynamicIndexing: Capability<31, "StorageImageArrayDynamicIndexing"> {}
+def CapabilityLiteralSampler: Capability<20, "LiteralSampler"> {}
+def CapabilityAddresses: Capability<4, "Addresses"> {}
+def CapabilityPipeStorage: Capability<60, "PipeStorage"> {}
+def CapabilityGroups: Capability<18, "Groups"> {}
+def CapabilityDrawParameters: Capability<4427, "DrawParameters"> {}
+def CapabilityStorageImageExtendedFormats: Capability<49, "StorageImageExtendedFormats"> {}
+def CapabilitySubgroupBallotKHR: Capability<4423, "SubgroupBallotKHR"> {}
+def CapabilityImageQuery: Capability<50, "ImageQuery"> {}
+def CapabilityStorageImageReadWithoutFormat: Capability<55, "StorageImageReadWithoutFormat"> {}
+def CapabilityFloat16Buffer: Capability<8, "Float16Buffer"> {}
+def CapabilityAtomicStorage: Capability<21, "AtomicStorage"> {}
+def CapabilityInt8: Capability<39, "Int8"> {}
+def CapabilityLinkage: Capability<5, "Linkage"> {}
+def CapabilityStorageImageWriteWithoutFormat: Capability<56, "StorageImageWriteWithoutFormat"> {}
+def CapabilityImageCubeArray: Capability<34, "ImageCubeArray"> {}
+def CapabilitySampledImageArrayDynamicIndexing: Capability<29, "SampledImageArrayDynamicIndexing"> {}
+def CapabilityInputAttachment: Capability<40, "InputAttachment"> {}
+def CapabilityImageBuffer: Capability<47, "ImageBuffer"> {}
+def CapabilityImageReadWrite: Capability<14, "ImageReadWrite"> {}
+def CapabilityInt16: Capability<22, "Int16"> {}
+def CapabilityInterpolationFunction: Capability<52, "InterpolationFunction"> {}
+def CapabilityInt64Atomics: Capability<12, "Int64Atomics"> {}
+def CapabilityUniformBufferArrayDynamicIndexing: Capability<28, "UniformBufferArrayDynamicIndexing"> {}
+def CapabilityCullDistance: Capability<33, "CullDistance"> {}
+def CapabilityImageGatherExtended: Capability<25, "ImageGatherExtended"> {}
+def CapabilityShader: Capability<1, "Shader"> {}
+def CapabilityPipes: Capability<17, "Pipes"> {}
+def CapabilityGeometry: Capability<2, "Geometry"> {}
+def CapabilityClipDistance: Capability<32, "ClipDistance"> {}
+def CapabilityDerivativeControl: Capability<51, "DerivativeControl"> {}
+def CapabilityKernel: Capability<6, "Kernel"> {}
+def CapabilitySampledBuffer: Capability<46, "SampledBuffer"> {}
+def CapabilitySampled1D: Capability<43, "Sampled1D"> {}
+def CapabilityTessellation: Capability<3, "Tessellation"> {}
+def CapabilityStorageImageMultisample: Capability<27, "StorageImageMultisample"> {}
+def CapabilityImageMSArray: Capability<48, "ImageMSArray"> {}
+def CapabilityFloat16: Capability<9, "Float16"> {}
+def CapabilityFloat64: Capability<10, "Float64"> {}
+def CapabilitySampledCubeArray: Capability<45, "SampledCubeArray"> {}
+def CapabilityNamedBarrier: Capability<59, "NamedBarrier"> {}
+def CapabilityMultiViewport: Capability<57, "MultiViewport"> {}
+def CapabilityGeometryStreams: Capability<54, "GeometryStreams"> {}
+def CapabilityMatrix: Capability<0, "Matrix"> {}
+def CapabilityDeviceEnqueue: Capability<19, "DeviceEnqueue"> {}
+def CapabilityGenericPointer: Capability<38, "GenericPointer"> {}
+def CapabilityMinLod: Capability<42, "MinLod"> {}
+def CapabilitySubgroupDispatch: Capability<58, "SubgroupDispatch"> {}
+def CapabilityGeometryPointSize: Capability<24, "GeometryPointSize"> {}
+def CapabilitySampledRect: Capability<37, "SampledRect"> {}
+def CapabilityStorageBufferArrayDynamicIndexing: Capability<30, "StorageBufferArrayDynamicIndexing"> {}
+def CapabilityImage1D: Capability<44, "Image1D"> {}
+def CapabilityImageRect: Capability<36, "ImageRect"> {}
+def CapabilitySparseResidency: Capability<41, "SparseResidency"> {}
+def CapabilityVector16: Capability<7, "Vector16"> {}
+def CapabilityTessellationPointSize: Capability<23, "TessellationPointSize"> {}
+def CapabilityInt64: Capability<11, "Int64"> {}
+def CapabilitySampleRateShading: Capability<35, "SampleRateShading"> {}
+def CapabilityImageBasic: Capability<13, "ImageBasic"> {}
+def CapabilityTransformFeedback: Capability<53, "TransformFeedback"> {}
+
+class Op<int v, string n> {
+  int Value = v;
+  string NAME = n;
+}
+
+def OpAll: Op<155, "OpAll"> {}
+def OpNop: Op<0, "OpNop"> {}
+def OpAtomicExchange: Op<229, "OpAtomicExchange"> {}
+def OpBranch: Op<249, "OpBranch"> {}
+def OpUConvert: Op<113, "OpUConvert"> {}
+def OpSGreaterThanEqual: Op<175, "OpSGreaterThanEqual"> {}
+def OpIAdd: Op<128, "OpIAdd"> {}
+def OpSpecConstantOp: Op<52, "OpSpecConstantOp"> {}
+def OpUGreaterThan: Op<172, "OpUGreaterThan"> {}
+def OpConstantFalse: Op<42, "OpConstantFalse"> {}
+def OpPtrCastToGeneric: Op<121, "OpPtrCastToGeneric"> {}
+def OpUMod: Op<137, "OpUMod"> {}
+def OpAtomicIIncrement: Op<232, "OpAtomicIIncrement"> {}
+def OpGenericPtrMemSemantics: Op<69, "OpGenericPtrMemSemantics"> {}
+def OpTypeFunction: Op<33, "OpTypeFunction"> {}
+def OpGroupUMin: Op<267, "OpGroupUMin"> {}
+def OpGenericCastToPtrExplicit: Op<123, "OpGenericCastToPtrExplicit"> {}
+def OpMemoryBarrier: Op<225, "OpMemoryBarrier"> {}
+def OpFOrdLessThan: Op<184, "OpFOrdLessThan"> {}
+def OpGroupCommitWritePipe: Op<288, "OpGroupCommitWritePipe"> {}
+def OpIsValidEvent: Op<300, "OpIsValidEvent"> {}
+def OpConstantNull: Op<46, "OpConstantNull"> {}
+def OpTypeVoid: Op<19, "OpTypeVoid"> {}
+def OpImageFetch: Op<95, "OpImageFetch"> {}
+def OpDecorationGroup: Op<73, "OpDecorationGroup"> {}
+def OpSampledImage: Op<86, "OpSampledImage"> {}
+def OpCompositeConstruct: Op<80, "OpCompositeConstruct"> {}
+def OpModuleProcessed: Op<330, "OpModuleProcessed"> {}
+def OpEmitStreamVertex: Op<220, "OpEmitStreamVertex"> {}
+def OpFOrdGreaterThanEqual: Op<190, "OpFOrdGreaterThanEqual"> {}
+def OpLogicalOr: Op<166, "OpLogicalOr"> {}
+def OpEmitVertex: Op<218, "OpEmitVertex"> {}
+def OpReadPipe: Op<274, "OpReadPipe"> {}
+def OpFunctionParameter: Op<55, "OpFunctionParameter"> {}
+def OpFMul: Op<133, "OpFMul"> {}
+def OpArrayLength: Op<68, "OpArrayLength"> {}
+def OpNoLine: Op<317, "OpNoLine"> {}
+def OpCopyObject: Op<83, "OpCopyObject"> {}
+def OpIsInf: Op<157, "OpIsInf"> {}
+def OpReserveReadPipePackets: Op<278, "OpReserveReadPipePackets"> {}
+def OpAtomicOr: Op<241, "OpAtomicOr"> {}
+def OpDecorate: Op<71, "OpDecorate"> {}
+def OpBranchConditional: Op<250, "OpBranchConditional"> {}
+def OpImageQuerySamples: Op<107, "OpImageQuerySamples"> {}
+def OpMemberDecorate: Op<72, "OpMemberDecorate"> {}
+def OpDPdxFine: Op<210, "OpDPdxFine"> {}
+def OpGetKernelNDrangeMaxSubGroupSize: Op<294, "OpGetKernelNDrangeMaxSubGroupSize"> {}
+def OpBitReverse: Op<204, "OpBitReverse"> {}
+def OpGroupAsyncCopy: Op<259, "OpGroupAsyncCopy"> {}
+def OpGetKernelWorkGroupSize: Op<295, "OpGetKernelWorkGroupSize"> {}
+def OpImageSampleDrefImplicitLod: Op<89, "OpImageSampleDrefImplicitLod"> {}
+def OpGroupFMin: Op<266, "OpGroupFMin"> {}
+def OpAtomicStore: Op<228, "OpAtomicStore"> {}
+def OpImageSparseTexelsResident: Op<316, "OpImageSparseTexelsResident"> {}
+def OpStore: Op<62, "OpStore"> {}
+def OpTypePipeStorage: Op<322, "OpTypePipeStorage"> {}
+def OpReserveWritePipePackets: Op<279, "OpReserveWritePipePackets"> {}
+def OpLogicalNotEqual: Op<165, "OpLogicalNotEqual"> {}
+def OpIAddCarry: Op<149, "OpIAddCarry"> {}
+def OpULessThanEqual: Op<178, "OpULessThanEqual"> {}
+def OpAtomicCompareExchange: Op<230, "OpAtomicCompareExchange"> {}
+def OpSRem: Op<138, "OpSRem"> {}
+def OpDPdyCoarse: Op<214, "OpDPdyCoarse"> {}
+def OpFUnordLessThan: Op<185, "OpFUnordLessThan"> {}
+def OpCommitWritePipe: Op<281, "OpCommitWritePipe"> {}
+def OpReleaseEvent: Op<298, "OpReleaseEvent"> {}
+def OpImageQueryLod: Op<105, "OpImageQueryLod"> {}
+def OpINotEqual: Op<171, "OpINotEqual"> {}
+def OpImageRead: Op<98, "OpImageRead"> {}
+def OpEntryPoint: Op<15, "OpEntryPoint"> {}
+def OpVectorTimesMatrix: Op<144, "OpVectorTimesMatrix"> {}
+def OpAtomicIAdd: Op<234, "OpAtomicIAdd"> {}
+def OpCreateUserEvent: Op<299, "OpCreateUserEvent"> {}
+def OpGetMaxPipePackets: Op<284, "OpGetMaxPipePackets"> {}
+def OpFAdd: Op<129, "OpFAdd"> {}
+def OpGetKernelNDrangeSubGroupCount: Op<293, "OpGetKernelNDrangeSubGroupCount"> {}
+def OpSource: Op<3, "OpSource"> {}
+def OpMemberName: Op<6, "OpMemberName"> {}
+def OpAccessChain: Op<65, "OpAccessChain"> {}
+def OpBitFieldSExtract: Op<202, "OpBitFieldSExtract"> {}
+def OpBitcast: Op<124, "OpBitcast"> {}
+def OpConvertSToF: Op<111, "OpConvertSToF"> {}
+def OpFwidthCoarse: Op<215, "OpFwidthCoarse"> {}
+def OpAtomicAnd: Op<240, "OpAtomicAnd"> {}
+def OpEndPrimitive: Op<219, "OpEndPrimitive"> {}
+def OpMatrixTimesVector: Op<145, "OpMatrixTimesVector"> {}
+def OpGroupReserveWritePipePackets: Op<286, "OpGroupReserveWritePipePackets"> {}
+def OpSpecConstant: Op<50, "OpSpecConstant"> {}
+def OpConstantTrue: Op<41, "OpConstantTrue"> {}
+def OpImageSparseSampleProjDrefExplicitLod: Op<312, "OpImageSparseSampleProjDrefExplicitLod"> {}
+def OpImageSparseRead: Op<320, "OpImageSparseRead"> {}
+def OpSubgroupBallotKHR: Op<4421, "OpSubgroupBallotKHR"> {}
+def OpTypeFloat: Op<22, "OpTypeFloat"> {}
+def OpAtomicLoad: Op<227, "OpAtomicLoad"> {}
+def OpFUnordEqual: Op<181, "OpFUnordEqual"> {}
+def OpCreatePipeFromPipeStorage: Op<324, "OpCreatePipeFromPipeStorage"> {}
+def OpIEqual: Op<170, "OpIEqual"> {}
+def OpCopyMemorySized: Op<64, "OpCopyMemorySized"> {}
+def OpTypeEvent: Op<34, "OpTypeEvent"> {}
+def OpLogicalNot: Op<168, "OpLogicalNot"> {}
+def OpFMod: Op<141, "OpFMod"> {}
+def OpTypeNamedBarrier: Op<327, "OpTypeNamedBarrier"> {}
+def OpDPdxCoarse: Op<213, "OpDPdxCoarse"> {}
+def OpSpecConstantFalse: Op<49, "OpSpecConstantFalse"> {}
+def OpMemoryNamedBarrier: Op<329, "OpMemoryNamedBarrier"> {}
+def OpDPdy: Op<208, "OpDPdy"> {}
+def OpLessOrGreater: Op<161, "OpLessOrGreater"> {}
+def OpImageSampleExplicitLod: Op<88, "OpImageSampleExplicitLod"> {}
+def OpGroupReserveReadPipePackets: Op<285, "OpGroupReserveReadPipePackets"> {}
+def OpDot: Op<148, "OpDot"> {}
+def OpFUnordGreaterThan: Op<187, "OpFUnordGreaterThan"> {}
+def OpImageWrite: Op<99, "OpImageWrite"> {}
+def OpGroupDecorate: Op<74, "OpGroupDecorate"> {}
+def OpSubgroupFirstInvocationKHR: Op<4422, "OpSubgroupFirstInvocationKHR"> {}
+def OpExecutionMode: Op<16, "OpExecutionMode"> {}
+def OpLoad: Op<61, "OpLoad"> {}
+def OpAtomicFlagClear: Op<319, "OpAtomicFlagClear"> {}
+def OpULessThan: Op<176, "OpULessThan"> {}
+def OpVectorTimesScalar: Op<142, "OpVectorTimesScalar"> {}
+def OpSLessThanEqual: Op<179, "OpSLessThanEqual"> {}
+def OpImageSampleImplicitLod: Op<87, "OpImageSampleImplicitLod"> {}
+def OpImageSparseSampleProjDrefImplicitLod: Op<311, "OpImageSparseSampleProjDrefImplicitLod"> {}
+def OpSignBitSet: Op<160, "OpSignBitSet"> {}
+def OpSwitch: Op<251, "OpSwitch"> {}
+def OpSelect: Op<169, "OpSelect"> {}
+def OpTranspose: Op<84, "OpTranspose"> {}
+def OpImageQueryLevels: Op<106, "OpImageQueryLevels"> {}
+def OpImageSampleProjImplicitLod: Op<91, "OpImageSampleProjImplicitLod"> {}
+def OpCommitReadPipe: Op<280, "OpCommitReadPipe"> {}
+def OpMatrixTimesMatrix: Op<146, "OpMatrixTimesMatrix"> {}
+def OpGroupFMax: Op<269, "OpGroupFMax"> {}
+def OpImageQuerySizeLod: Op<103, "OpImageQuerySizeLod"> {}
+def OpSpecConstantComposite: Op<51, "OpSpecConstantComposite"> {}
+def OpTypeSampledImage: Op<27, "OpTypeSampledImage"> {}
+def OpImageSparseFetch: Op<313, "OpImageSparseFetch"> {}
+def OpGroupUMax: Op<270, "OpGroupUMax"> {}
+def OpTypePointer: Op<32, "OpTypePointer"> {}
+def OpUnreachable: Op<255, "OpUnreachable"> {}
+def OpImageSparseSampleDrefExplicitLod: Op<308, "OpImageSparseSampleDrefExplicitLod"> {}
+def OpGetNumPipePackets: Op<283, "OpGetNumPipePackets"> {}
+def OpBitwiseXor: Op<198, "OpBitwiseXor"> {}
+def OpEnqueueMarker: Op<291, "OpEnqueueMarker"> {}
+def OpFunctionCall: Op<57, "OpFunctionCall"> {}
+def OpTypeQueue: Op<37, "OpTypeQueue"> {}
+def OpVariable: Op<59, "OpVariable"> {}
+def OpUndef: Op<1, "OpUndef"> {}
+def OpBitFieldInsert: Op<201, "OpBitFieldInsert"> {}
+def OpImageSparseSampleExplicitLod: Op<306, "OpImageSparseSampleExplicitLod"> {}
+def OpSizeOf: Op<321, "OpSizeOf"> {}
+def OpExtInst: Op<12, "OpExtInst"> {}
+def OpTypeOpaque: Op<31, "OpTypeOpaque"> {}
+def OpFSub: Op<131, "OpFSub"> {}
+def OpFOrdLessThanEqual: Op<188, "OpFOrdLessThanEqual"> {}
+def OpTypeInt: Op<21, "OpTypeInt"> {}
+def OpGroupSMax: Op<271, "OpGroupSMax"> {}
+def OpCompositeExtract: Op<81, "OpCompositeExtract"> {}
+def OpTypePipe: Op<38, "OpTypePipe"> {}
+def OpLogicalEqual: Op<164, "OpLogicalEqual"> {}
+def OpAtomicXor: Op<242, "OpAtomicXor"> {}
+def OpTypeArray: Op<28, "OpTypeArray"> {}
+def OpAtomicUMax: Op<239, "OpAtomicUMax"> {}
+def OpTypeVector: Op<23, "OpTypeVector"> {}
+def OpFunctionEnd: Op<56, "OpFunctionEnd"> {}
+def OpUMulExtended: Op<151, "OpUMulExtended"> {}
+def OpGroupFAdd: Op<265, "OpGroupFAdd"> {}
+def OpNot: Op<200, "OpNot"> {}
+def OpExtInstImport: Op<11, "OpExtInstImport"> {}
+def OpLine: Op<8, "OpLine"> {}
+def OpConstant: Op<43, "OpConstant"> {}
+def OpTypeMatrix: Op<24, "OpTypeMatrix"> {}
+def OpSLessThan: Op<177, "OpSLessThan"> {}
+def OpSourceContinued: Op<2, "OpSourceContinued"> {}
+def OpISub: Op<130, "OpISub"> {}
+def OpInBoundsPtrAccessChain: Op<70, "OpInBoundsPtrAccessChain"> {}
+def OpGroupIAdd: Op<264, "OpGroupIAdd"> {}
+def OpAtomicSMax: Op<238, "OpAtomicSMax"> {}
+def OpLogicalAnd: Op<167, "OpLogicalAnd"> {}
+def OpSatConvertSToU: Op<118, "OpSatConvertSToU"> {}
+def OpTypeDeviceEvent: Op<35, "OpTypeDeviceEvent"> {}
+def OpIsValidReserveId: Op<282, "OpIsValidReserveId"> {}
+def OpPtrAccessChain: Op<67, "OpPtrAccessChain"> {}
+def OpImageGather: Op<96, "OpImageGather"> {}
+def OpImageSparseSampleDrefImplicitLod: Op<307, "OpImageSparseSampleDrefImplicitLod"> {}
+def OpGroupAny: Op<262, "OpGroupAny"> {}
+def OpConvertFToS: Op<110, "OpConvertFToS"> {}
+def OpImageSparseSampleProjImplicitLod: Op<309, "OpImageSparseSampleProjImplicitLod"> {}
+def OpGenericCastToPtr: Op<122, "OpGenericCastToPtr"> {}
+def OpGetKernelLocalSizeForSubgroupCount: Op<325, "OpGetKernelLocalSizeForSubgroupCount"> {}
+def OpControlBarrier: Op<224, "OpControlBarrier"> {}
+def OpAtomicCompareExchangeWeak: Op<231, "OpAtomicCompareExchangeWeak"> {}
+def OpSConvert: Op<114, "OpSConvert"> {}
+def OpTypeImage: Op<25, "OpTypeImage"> {}
+def OpAtomicFlagTestAndSet: Op<318, "OpAtomicFlagTestAndSet"> {}
+def OpReservedReadPipe: Op<276, "OpReservedReadPipe"> {}
+def OpImageSampleDrefExplicitLod: Op<90, "OpImageSampleDrefExplicitLod"> {}
+def OpMemoryModel: Op<14, "OpMemoryModel"> {}
+def OpFUnordLessThanEqual: Op<189, "OpFUnordLessThanEqual"> {}
+def OpDPdyFine: Op<211, "OpDPdyFine"> {}
+def OpFDiv: Op<136, "OpFDiv"> {}
+def OpVectorInsertDynamic: Op<78, "OpVectorInsertDynamic"> {}
+def OpVectorShuffle: Op<79, "OpVectorShuffle"> {}
+def OpReservedWritePipe: Op<277, "OpReservedWritePipe"> {}
+def OpIMul: Op<132, "OpIMul"> {}
+def OpFUnordGreaterThanEqual: Op<191, "OpFUnordGreaterThanEqual"> {}
+def OpImageQueryOrder: Op<102, "OpImageQueryOrder"> {}
+def OpImageSparseSampleImplicitLod: Op<305, "OpImageSparseSampleImplicitLod"> {}
+def OpWritePipe: Op<275, "OpWritePipe"> {}
+def OpName: Op<5, "OpName"> {}
+def OpCapability: Op<17, "OpCapability"> {}
+def OpTypeBool: Op<20, "OpTypeBool"> {}
+def OpFwidthFine: Op<212, "OpFwidthFine"> {}
+def OpFUnordNotEqual: Op<183, "OpFUnordNotEqual"> {}
+def OpImageQueryFormat: Op<101, "OpImageQueryFormat"> {}
+def OpLifetimeStart: Op<256, "OpLifetimeStart"> {}
+def OpTypeSampler: Op<26, "OpTypeSampler"> {}
+def OpEndStreamPrimitive: Op<221, "OpEndStreamPrimitive"> {}
+def OpGroupAll: Op<261, "OpGroupAll"> {}
+def OpShiftRightLogical: Op<194, "OpShiftRightLogical"> {}
+def OpAny: Op<154, "OpAny"> {}
+def OpUnordered: Op<163, "OpUnordered"> {}
+def OpGroupSMin: Op<268, "OpGroupSMin"> {}
+def OpTypeForwardPointer: Op<39, "OpTypeForwardPointer"> {}
+def OpFunction: Op<54, "OpFunction"> {}
+def OpConvertFToU: Op<109, "OpConvertFToU"> {}
+def OpFConvert: Op<115, "OpFConvert"> {}
+def OpOuterProduct: Op<147, "OpOuterProduct"> {}
+def OpIsNan: Op<156, "OpIsNan"> {}
+def OpCopyMemory: Op<63, "OpCopyMemory"> {}
+def OpTypeStruct: Op<30, "OpTypeStruct"> {}
+def OpSMulExtended: Op<152, "OpSMulExtended"> {}
+def OpConstantPipeStorage: Op<323, "OpConstantPipeStorage"> {}
+def OpGetKernelMaxNumSubgroups: Op<326, "OpGetKernelMaxNumSubgroups"> {}
+def OpExtension: Op<10, "OpExtension"> {}
+def OpSelectionMerge: Op<247, "OpSelectionMerge"> {}
+def OpAtomicISub: Op<235, "OpAtomicISub"> {}
+def OpImage: Op<100, "OpImage"> {}
+def OpQuantizeToF16: Op<116, "OpQuantizeToF16"> {}
+def OpBuildNDRange: Op<304, "OpBuildNDRange"> {}
+def OpSatConvertUToS: Op<119, "OpSatConvertUToS"> {}
+def OpDPdx: Op<207, "OpDPdx"> {}
+def OpOrdered: Op<162, "OpOrdered"> {}
+def OpUGreaterThanEqual: Op<174, "OpUGreaterThanEqual"> {}
+def OpVectorExtractDynamic: Op<77, "OpVectorExtractDynamic"> {}
+def OpIsNormal: Op<159, "OpIsNormal"> {}
+def OpConstantComposite: Op<44, "OpConstantComposite"> {}
+def OpString: Op<7, "OpString"> {}
+def OpUDiv: Op<134, "OpUDiv"> {}
+def OpSDiv: Op<135, "OpSDiv"> {}
+def OpLoopMerge: Op<246, "OpLoopMerge"> {}
+def OpImageSampleProjDrefImplicitLod: Op<93, "OpImageSampleProjDrefImplicitLod"> {}
+def OpSpecConstantTrue: Op<48, "OpSpecConstantTrue"> {}
+def OpCompositeInsert: Op<82, "OpCompositeInsert"> {}
+def OpTypeRuntimeArray: Op<29, "OpTypeRuntimeArray"> {}
+def OpGroupMemberDecorate: Op<75, "OpGroupMemberDecorate"> {}
+def OpSGreaterThan: Op<173, "OpSGreaterThan"> {}
+def OpReturnValue: Op<254, "OpReturnValue"> {}
+def OpFwidth: Op<209, "OpFwidth"> {}
+def OpImageTexelPointer: Op<60, "OpImageTexelPointer"> {}
+def OpFOrdEqual: Op<180, "OpFOrdEqual"> {}
+def OpFOrdGreaterThan: Op<186, "OpFOrdGreaterThan"> {}
+def OpReturn: Op<253, "OpReturn"> {}
+def OpImageSparseSampleProjExplicitLod: Op<310, "OpImageSparseSampleProjExplicitLod"> {}
+def OpConvertUToF: Op<112, "OpConvertUToF"> {}
+def OpImageSampleProjDrefExplicitLod: Op<94, "OpImageSampleProjDrefExplicitLod"> {}
+def OpFRem: Op<140, "OpFRem"> {}
+def OpImageSampleProjExplicitLod: Op<92, "OpImageSampleProjExplicitLod"> {}
+def OpConstantSampler: Op<45, "OpConstantSampler"> {}
+def OpSetUserEventStatus: Op<301, "OpSetUserEventStatus"> {}
+def OpAtomicUMin: Op<237, "OpAtomicUMin"> {}
+def OpImageQuerySize: Op<104, "OpImageQuerySize"> {}
+def OpNamedBarrierInitialize: Op<328, "OpNamedBarrierInitialize"> {}
+def OpLabel: Op<248, "OpLabel"> {}
+def OpGetDefaultQueue: Op<303, "OpGetDefaultQueue"> {}
+def OpAtomicSMin: Op<236, "OpAtomicSMin"> {}
+def OpBitCount: Op<205, "OpBitCount"> {}
+def OpGroupCommitReadPipe: Op<287, "OpGroupCommitReadPipe"> {}
+def OpBitwiseAnd: Op<199, "OpBitwiseAnd"> {}
+def OpGroupWaitEvents: Op<260, "OpGroupWaitEvents"> {}
+def OpAtomicIDecrement: Op<233, "OpAtomicIDecrement"> {}
+def OpSMod: Op<139, "OpSMod"> {}
+def OpKill: Op<252, "OpKill"> {}
+def OpGetKernelPreferredWorkGroupSizeMultiple: Op<296, "OpGetKernelPreferredWorkGroupSizeMultiple"> {}
+def OpPhi: Op<245, "OpPhi"> {}
+def OpIsFinite: Op<158, "OpIsFinite"> {}
+def OpLifetimeStop: Op<257, "OpLifetimeStop"> {}
+def OpGroupBroadcast: Op<263, "OpGroupBroadcast"> {}
+def OpFNegate: Op<127, "OpFNegate"> {}
+def OpTypeReserveId: Op<36, "OpTypeReserveId"> {}
+def OpRetainEvent: Op<297, "OpRetainEvent"> {}
+def OpImageDrefGather: Op<97, "OpImageDrefGather"> {}
+def OpImageSparseDrefGather: Op<315, "OpImageSparseDrefGather"> {}
+def OpShiftRightArithmetic: Op<195, "OpShiftRightArithmetic"> {}
+def OpFOrdNotEqual: Op<182, "OpFOrdNotEqual"> {}
+def OpShiftLeftLogical: Op<196, "OpShiftLeftLogical"> {}
+def OpCaptureEventProfilingInfo: Op<302, "OpCaptureEventProfilingInfo"> {}
+def OpSNegate: Op<126, "OpSNegate"> {}
+def OpConvertPtrToU: Op<117, "OpConvertPtrToU"> {}
+def OpInBoundsAccessChain: Op<66, "OpInBoundsAccessChain"> {}
+def OpConvertUToPtr: Op<120, "OpConvertUToPtr"> {}
+def OpISubBorrow: Op<150, "OpISubBorrow"> {}
+def OpMatrixTimesScalar: Op<143, "OpMatrixTimesScalar"> {}
+def OpBitFieldUExtract: Op<203, "OpBitFieldUExtract"> {}
+def OpBitwiseOr: Op<197, "OpBitwiseOr"> {}
+def OpImageSparseGather: Op<314, "OpImageSparseGather"> {}
+def OpSourceExtension: Op<4, "OpSourceExtension"> {}
+def OpEnqueueKernel: Op<292, "OpEnqueueKernel"> {}
+
+
+
 //class SPIRVReg<string n> : Register<n> {
   //let Namespace = "SPIRV";
 //}
@@ -36,22 +908,13 @@ foreach i = 0-4 in {
 def Int64Regs : SPIRVRegClass<[i64], 64, (add (sequence "RL%u", 0, 4))>;
 
 // SPIRV Instruction Format.
-class SPIRVInst<dag outs, dag ins, 
-                bits<32> inst,
-                string asmstr,
+class SPIRVInst<Op op, dag outs, dag ins, 
                 list<dag> pattern> : Instruction {
-  field bits<32> Inst = inst; // Instruction encoding.
-  let Namespace   = "SPIRV";
-  //let Pattern     = [];
-  //let AsmString   = asmstr;
+  field bits<32> Inst = op.Value; // Instruction encoding.
   dag OutOperandList = outs;
   dag InOperandList = ins;
-  let AsmString = asmstr;
+
+  let Namespace   = "SPIRV";
+  let AsmString = op.NAME;
   let Pattern = pattern;  
 }
-
-def OpDummy :
-    SPIRVInst<(outs Int64Regs:$dst), (ins Int64Regs:$a),
-              0,
-              "OpDummy",
-              [(set Int64Regs:$dst, Int64Regs:$a)]>;
