@@ -67,6 +67,12 @@ static MCTargetStreamer *createAsmTargetStreamer(MCStreamer &S,
   return new SPIRVTargetAsmStreamer(S, OS);
 }
 
+static MCStreamer *createMCStreamer(const Triple &T, MCContext &Context,
+                                    MCAsmBackend &MAB, raw_pwrite_stream &OS,
+                                    MCCodeEmitter *Emitter, bool RelaxAll) {
+  return createSPIRVMCStreamer(Context, MAB, OS, Emitter, RelaxAll);
+}
+
 // Force static initialization.
 extern "C" void LLVMInitializeSPIRVTargetMC() {
   for (Target *T : {&getTheSPIRVTarget()}) {
@@ -81,6 +87,9 @@ extern "C" void LLVMInitializeSPIRVTargetMC() {
 
     // Register the ASM Backend.
     TargetRegistry::RegisterMCAsmBackend(*T, createAsmBackend);
+ 
+    // Register the object streamer.
+    TargetRegistry::RegisterELFStreamer(*T, createMCStreamer);
 
     // Register the asm target streamer.
     TargetRegistry::RegisterAsmTargetStreamer(*T, createAsmTargetStreamer);    

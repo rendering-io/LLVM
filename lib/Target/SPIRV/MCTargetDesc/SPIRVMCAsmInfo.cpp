@@ -19,6 +19,9 @@ using namespace llvm;
 
 #define DEBUG_TYPE "spirv-mc-asm-info"
 
-SPIRVMCAsmInfo::~SPIRVMCAsmInfo() {}
+SPIRVMCAsmInfo::~SPIRVMCAsmInfo() {
+  // Don't emit .file directives into asm files.
+  HasSingleParameterDotFile = false;
+}
 
 SPIRVMCAsmInfo::SPIRVMCAsmInfo(const Triple &T) { PointerSize = 8; }

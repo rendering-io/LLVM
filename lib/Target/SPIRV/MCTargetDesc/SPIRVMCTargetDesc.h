@@ -18,6 +18,7 @@
 #include "llvm/MC/MCInstrDesc.h"
 #include "llvm/MC/MCInstrInfo.h"
 #include "llvm/MC/MCSubtargetInfo.h"
+#include "llvm/MC/MCELFStreamer.h"
 #include "llvm/Support/DataTypes.h"
 
 
@@ -53,6 +54,9 @@ MCCodeEmitter *createSPIRVMCCodeEmitter(const MCInstrInfo &MCII);
 
 MCAsmBackend *createSPIRVAsmBackend(const Triple &TT);
 
+MCELFStreamer *createSPIRVMCStreamer(MCContext &Context, MCAsmBackend &MAB,
+                                     raw_pwrite_stream &OS,
+                                     MCCodeEmitter *Emitter, bool RelaxAll);
 }
 
 #endif // LLVM_LIB_TARGET_SPIRV_MCTARGETDESC_SPIRVMCTARGETDESC_H
