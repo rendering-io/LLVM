@@ -67,6 +67,7 @@ private:
   // AsmPrinter Implementation.
   //===------------------------------------------------------------------===//
 
+  void EmitStartOfAsmFile(Module &M) override;
   void EmitEndOfAsmFile(Module &M) override;
   void EmitJumpTableInfo() override;
   void EmitConstantPool() override;
@@ -83,6 +84,13 @@ private:
 
   MVT getRegType(unsigned RegNo) const;
   SPIRVTargetStreamer *getTargetStreamer();
+
+  void emitCapabilities();
+  void emitExtensions();
+  void emitExtInstImports();
+  void emitMemoryModel();
+  void emitEntryPoints();
+  void emitExecutionModes();
 };
 
 } // end anonymous namespace
@@ -120,6 +128,60 @@ SPIRVTargetStreamer *SPIRVAsmPrinter::getTargetStreamer() {
 //===----------------------------------------------------------------------===//
 // SPIRVAsmPrinter Implementation.
 //===----------------------------------------------------------------------===//
+
+void SPIRVAsmPrinter::EmitStartOfAsmFile(Module &M) {
+  // The instructions of a SPIR-V module must be in the following order. For 
+  // sections earlier than function definitions, it is invalid to use 
+  // instructions other than those indicated.
+
+  // All OpCapability instructions.
+  emitCapabilities();
+
+  // Optional OpExtension instructions (extensions to SPIR-V).
+  emitExtensions();
+
+  // Optional OpExtInstImport instructions.
+  emitExtInstImports();
+
+  // The single required OpMemoryModel instruction.
+  emitMemoryModel();
+
+  // All entry point declarations, using OpEntryPoint.
+  emitEntryPoints();
+
+  // All execution mode declarations, using OpExecutionMode.
+  emitExecutionModes();
+
+  // These debug instructions, which must be in the following order:
+  // all OpString, OpSourceExtension, OpSource, and OpSourceContinued, without forward references.
+  // all OpName and all OpMemberName
+  // All annotation instructions:
+  // all decoration instructions (OpDecorate, OpMemberDecorate, OpGroupDecorate, OpGroupMemberDecorate, and OpDecorationGroup).
+
+  // All type declarations (OpTypeXXX instructions), all constant instructions, and all global variable declarations (all OpVariable instructions whose Storage Class is not Function). This is the preferred location for OpUndef instructions, though they can also appear in function bodies. All operands in all these instructions must be declared before being used. Otherwise, they can be in any order. This section is the first section to allow use of OpLine debug information.
+
+  // All function declarations ("declarations" are functions without a body; there is no forward declaration to a function with a body). A function declaration is as follows.
+  // 
+  // Function declaration, using OpFunction.
+  // 
+  // Function parameter declarations, using OpFunctionParameter.
+  // 
+  // Function end, using OpFunctionEnd.
+  // 
+  // All function definitions (functions with a body). A function definition is as follows.
+  // 
+  // Function definition, using OpFunction.
+  // 
+  // Function parameter declarations, using OpFunctionParameter.
+  // 
+  // Block
+  // 
+  // Block
+  // 
+  // …
+  // 
+  // Function end, using OpFunctionEnd.
+}
 
 void SPIRVAsmPrinter::EmitEndOfAsmFile(Module &M) {
 
@@ -187,6 +249,30 @@ bool SPIRVAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI,
     report_fatal_error("There are no defined alternate asm variants");
 
   return AsmPrinter::PrintAsmMemoryOperand(MI, OpNo, AsmVariant, ExtraCode, OS);
+}
+
+void SPIRVAsmPrinter::emitCapabilities() {
+
+}
+
+void SPIRVAsmPrinter::emitExtensions() {
+
+}
+
+void SPIRVAsmPrinter::emitExtInstImports() {
+
+}
+
+void SPIRVAsmPrinter::emitMemoryModel() {
+
+}
+
+void SPIRVAsmPrinter::emitEntryPoints() {
+
+}
+
+void SPIRVAsmPrinter::emitExecutionModes() {
+
 }
 
 // Force static initialization.
