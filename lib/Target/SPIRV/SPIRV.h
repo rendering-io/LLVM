@@ -24,11 +24,12 @@ namespace llvm {
 class SPIRVTargetMachine;
 class ModulePass;
 class FunctionPass;
+class MachineFunctionPass;
 
 // ISel and immediate followup passes.
 FunctionPass *createSPIRVISelDag(SPIRVTargetMachine &TM,
                                        CodeGenOpt::Level OptLevel);
-
+MachineFunctionPass *createSPIRVPrologEpilogPass();
 // Late passes.
 
 } // end namespace llvm
