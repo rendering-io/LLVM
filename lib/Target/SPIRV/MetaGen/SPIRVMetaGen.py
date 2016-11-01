@@ -6,7 +6,7 @@ def emitEnumDef(Name, Class, Value):
   # horrible, so special case Ops
   DefName = Class + Name
   if 'Op' == Class:
-    DefName = Name
+    DefName = 'OpCode' + Name[2:]
 
   print('def ' + DefName + ': ' 
                + Class + '<' + str(Value) + ', "' + Name +  '"> {}')
@@ -32,8 +32,39 @@ def emitEnums():
   
   return
 
+def emitInstruction(i):
+  #    "opname" : "PackDouble2x32",
+  #    "opcode" : 59,
+  #    "operands" : [
+  #      { "kind" : "IdRef", "name" : "'v'" }
+  #    ],
+  #    "capabilities" : [ "Float64" ]  
+  Name = i['opname']
+  Capabilities = ''
+  if 'capabilities' in i.keys():
+    Capabilities = ', '.join(['Capability' + c for c in i['capabilities']])
+
+  Operands = []
+  if 'operands' in i.keys():
+    Operands = i['operands']
+
+  Comment = '// ' + Name + ' ' + ', '.join([op['kind'] for op in Operands])
+
+  print(Comment)
+  print('def ' + Name + ' : SPIRVInst<OpCode' + Name[2:] + ',')
+  print('  [' + Capabilities + '], (outs), (ins), []>;')
+  print('')
+
+def emitInstructions():
+  db = json.load(open('spirv.core.grammar.json'))
+
+  # Iterate over all the instruction definitions.
+  [emitInstruction(i) for i in db['instructions']]
+  return
+
 def main():
   emitEnums()
+  emitInstructions()
   return
 
 if __name__ == "__main__":
