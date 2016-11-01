@@ -69,16 +69,19 @@ void SPIRVMCInstLower::Lower(const MachineInstr *MI,
     case MachineOperand::MO_MachineBasicBlock:
       MI->dump();
       llvm_unreachable("MachineBasicBlock operand should have been rewritten");
-/*    case MachineOperand::MO_Register: {
+    case MachineOperand::MO_Register: {
       // Ignore all implicit register operands.
       if (MO.isImplicit())
         continue;
-      const SPIRVFunctionInfo &MFI =
-          *MI->getParent()->getParent()->getInfo<SPIRVFunctionInfo>();
-      unsigned WAReg = MFI.getWAReg(MO.getReg());
-      MCOp = MCOperand::createReg(WAReg);
+
+      // This is WebAssembly mapping to their own register map. We need 
+      // something similar for SPIR-V.
+      //const SPIRVFunctionInfo &MFI =
+      //    *MI->getParent()->getParent()->getInfo<SPIRVFunctionInfo>();
+      //unsigned WAReg = MFI.getWAReg(MO.getReg());
+      MCOp = MCOperand::createReg(MO.getReg()/*(WAReg*/);
       break;
-    }*/
+    }
     case MachineOperand::MO_Immediate:
       MCOp = MCOperand::createImm(MO.getImm());
       break;

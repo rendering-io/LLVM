@@ -908,7 +908,8 @@ foreach i = 0-4 in {
 def Int64Regs : SPIRVRegClass<[i64], 64, (add (sequence "RL%u", 0, 4))>;
 
 // SPIRV Instruction Format.
-class SPIRVInst<Op op, dag outs, dag ins, 
+class SPIRVInst<Op op, list<Capability> caps,
+                dag outs, dag ins, 
                 list<dag> pattern> : Instruction {
   field bits<32> Inst = op.Value; // Instruction encoding.
   dag OutOperandList = outs;

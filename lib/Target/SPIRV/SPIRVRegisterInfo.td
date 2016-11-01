@@ -57,6 +57,7 @@ def ARGUMENTS : SPIRVReg<"ARGUMENTS">;
 //===----------------------------------------------------------------------===//
 def LogicalPtr : SPIRVRegClass<[i64], 64, (add LP_0)>;
 def TypeRef : SPIRVRegClass<[i64], 64, (add TR_0)>;
+def Id : SPIRVRegClass<[i64], 64, (add LP_0)>;
 def I32 : SPIRVRegClass<[i32], 32, (add FP32, SP32)>;
 def I64 : SPIRVRegClass<[i64], 64, (add FP64, SP64)>;
 //def F32 : SPIRVRegClass<[f32], 32, (add F32_0)>;

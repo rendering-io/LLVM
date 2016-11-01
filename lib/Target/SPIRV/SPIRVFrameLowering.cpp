@@ -32,7 +32,25 @@ using namespace llvm;
 SPIRVFrameLowering::~SPIRVFrameLowering() {}
 
 void SPIRVFrameLowering::emitPrologue(MachineFunction &MF,
-                                            MachineBasicBlock &MBB) const {
+                                      MachineBasicBlock &MBB) const {
+  const SPIRVSubtarget &ST = MF.getSubtarget<SPIRVSubtarget>();
+  const SPIRVRegisterInfo &TRI = *ST.getRegisterInfo();
+  const SPIRVInstrInfo *TII = ST.getInstrInfo();
+  MachineRegisterInfo &MRI = MF.getRegInfo();
+
+  DebugLoc DL = DebugLoc();
+  
+  // Create a label instruction.
+  const MachineInstrBuilder &MIB = BuildMI(MBB, MBB.begin(), DL,
+                                           TII->get(SPIRV::Label));
+
+  // Get the expected register class for the destination register.
+  MachineInstr *MI = MIB;
+  const TargetRegisterClass *TRC = TII->getRegClass(MI->getDesc(), 0, &TRI, MF);
+
+  // Create a corresponding virtual register.
+  unsigned DestReg = MRI.createVirtualRegister(TRC);
+  MIB.addReg(DestReg);
 }
 
 void SPIRVFrameLowering::emitEpilogue(MachineFunction &MF,

@@ -15,7 +15,7 @@
 let isTerminator = 1, hasCtrlDep = 1, isBarrier = 1 in {
 
 let isReturn = 1 in {
-  def Return : SPIRVInst<OpReturn,
+  def Return : SPIRVInst<OpReturn, [],
                          (outs), (ins),
                          [(SPIRVReturn)]>;
 } // isReturn = 1
