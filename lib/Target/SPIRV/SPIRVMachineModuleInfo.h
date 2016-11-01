@@ -22,6 +22,9 @@ namespace llvm {
 /// This class is derived from MachineModuleInfoImpl and contains private
 /// SPIRV-specific information for each MachineModule.
 class SPIRVMachineModuleInfo final : public MachineModuleInfoImpl {
+  // Maps from an LLVM type to a SPIR-V result id.
+  DenseMap<Type*, unsigned> TypeMap;
+  
   const MachineModuleInfo &MMI;
 
   virtual void anchor(); // Out of line virtual method.
