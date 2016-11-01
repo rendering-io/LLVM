@@ -46,6 +46,8 @@ include "SPIRVInstrFormats.td"
 // Additional instructions.
 //===----------------------------------------------------------------------===//
 def Label : SPIRVInst<OpLabel, [], (outs Id:$dst), (ins), []>;
+def Function : SPIRVInst<OpFunction, [], (outs Id:$dst), (ins), []>;
+def FunctionEnd : SPIRVInst<OpFunctionEnd, [], (outs), (ins), []>;
 
 //===----------------------------------------------------------------------===//
 // Additional sets of instructions.

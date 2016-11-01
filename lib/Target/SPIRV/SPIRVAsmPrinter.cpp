@@ -71,8 +71,10 @@ private:
   void EmitEndOfAsmFile(Module &M) override;
   void EmitJumpTableInfo() override;
   void EmitConstantPool() override;
+  void EmitFunctionEntryLabel() override;
   void EmitFunctionBodyStart() override;
   void EmitFunctionBodyEnd() override;
+  void EmitBasicBlockStart(const MachineBasicBlock &MBB) const override;
   void EmitInstruction(const MachineInstr *MI) override;
   const MCExpr *lowerConstant(const Constant *CV) override;
   bool PrintAsmOperand(const MachineInstr *MI, unsigned OpNo,
@@ -81,6 +83,7 @@ private:
   bool PrintAsmMemoryOperand(const MachineInstr *MI, unsigned OpNo,
                              unsigned AsmVariant, const char *ExtraCode,
                              raw_ostream &OS) override;
+  void EmitFunctionHeader() override;
 
   MVT getRegType(unsigned RegNo) const;
   SPIRVTargetStreamer *getTargetStreamer();
@@ -192,8 +195,20 @@ void SPIRVAsmPrinter::EmitConstantPool() {
          "SPIRV disables constant pools");
 }
 
+void SPIRVAsmPrinter::EmitBasicBlockStart(const MachineBasicBlock &MBB) const {
+
+}
+
 void SPIRVAsmPrinter::EmitJumpTableInfo() {
   // Nothing to do; jump tables are incorporated into the instruction stream.
+}
+
+void SPIRVAsmPrinter::EmitFunctionHeader() {
+  
+}
+  
+void SPIRVAsmPrinter::EmitFunctionEntryLabel() {
+
 }
 
 void SPIRVAsmPrinter::EmitFunctionBodyStart() {

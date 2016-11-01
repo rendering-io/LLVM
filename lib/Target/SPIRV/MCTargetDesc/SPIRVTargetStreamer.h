@@ -54,6 +54,7 @@ class SPIRVTargetAsmStreamer final : public SPIRVTargetStreamer {
 public:
   SPIRVTargetAsmStreamer(MCStreamer &S, formatted_raw_ostream &OS);
 
+  void emitLabel(MCSymbol *Symbol) override;
   void emitParam(ArrayRef<MVT> Types) override;
   void emitResult(ArrayRef<MVT> Types) override;
   void emitLocal(ArrayRef<MVT> Types) override;

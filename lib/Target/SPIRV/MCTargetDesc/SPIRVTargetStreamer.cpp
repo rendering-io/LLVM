@@ -47,6 +47,8 @@ static void PrintTypes(formatted_raw_ostream &OS, ArrayRef<MVT> Types) {
   OS << '\n';
 }
 
+void SPIRVTargetAsmStreamer::emitLabel(MCSymbol *Symbol) {}
+
 void SPIRVTargetAsmStreamer::emitParam(ArrayRef<MVT> Types) {
   OS << "\t.param  \t";
   PrintTypes(OS, Types);
@@ -62,7 +64,9 @@ void SPIRVTargetAsmStreamer::emitLocal(ArrayRef<MVT> Types) {
   PrintTypes(OS, Types);
 }
 
-void SPIRVTargetAsmStreamer::emitEndFunc() { OS << "\t.endfunc\n"; }
+void SPIRVTargetAsmStreamer::emitEndFunc() {
+
+}
 
 void SPIRVTargetAsmStreamer::emitIndirectFunctionType(
     StringRef name, SmallVectorImpl<MVT> &Params, SmallVectorImpl<MVT> &Results) {

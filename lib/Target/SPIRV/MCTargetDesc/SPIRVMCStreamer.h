@@ -33,6 +33,7 @@ public:
                   MCCodeEmitter *Emitter)
       : MCELFStreamer(Context, MAB, OS, Emitter) { }
 
+  void EmitLabel(MCSymbol *Symbol) override;
 };
 
 MCELFStreamer *createSPIRVMCStreamer(MCContext &Context, MCAsmBackend &MAB,

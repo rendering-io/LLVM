@@ -11,6 +11,8 @@
 
 using namespace llvm;
 
+void SPIRVMCStreamer::EmitLabel(MCSymbol *Symbol) {}
+
 MCELFStreamer *llvm::createSPIRVMCStreamer(MCContext &Context,
                                            MCAsmBackend &MAB,
                                            raw_pwrite_stream &OS,
