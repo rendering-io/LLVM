@@ -31,6 +31,21 @@ enum OperandType {
   /// Memory model immediate for OpMemoryModel.
   OPERAND_MEMORYMODEL
 };
+
+/// SPIR-V addressing model identifiers.
+enum AddressingModel {
+  Logical = 0,
+  Physical32 = 1,
+  Physical64 = 2,
+};
+
+/// SPIR-V memory model identifiers.
+enum MemoryModel {
+  Simple = 0,
+  GLSL450 = 1,
+  OpenCL = 2,
+};
+
 }}
 
 // Defines symbolic names for SPIRV registers. This defines a mapping from

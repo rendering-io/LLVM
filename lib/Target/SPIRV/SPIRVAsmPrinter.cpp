@@ -288,10 +288,8 @@ void SPIRVAsmPrinter::emitMemoryModel(MCSubtargetInfo& STI) {
   // Emit a memory model instruction.
   MCInst OutMI;
   OutMI.setOpcode(SPIRV::OpMemoryModel);
-  //OutMI.addOperand(MCOperand::createImm(SPIRV::AddressingModelLogical););
-  // Not sure why the enum isn't declared.
-  OutMI.addOperand(MCOperand::createImm(0));
-  OutMI.addOperand(MCOperand::createImm(1));
+  OutMI.addOperand(MCOperand::createImm(SPIRV::Logical));
+  OutMI.addOperand(MCOperand::createImm(SPIRV::GLSL450));
   OutStreamer->EmitInstruction(OutMI, STI);
 }
 

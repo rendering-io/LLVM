@@ -65,12 +65,26 @@ void SPIRVInstPrinter::printAddressingModelOperand(const MCInst *MI,
                                                    raw_ostream &OS) {
   const MCOperand& Op = MI->getOperand(OpNo);
   assert(Op.isImm() && "AddressingModel operand must be an immediate.");
-  OS << "AddressingModel " << Op.getImm();
+
+  switch (Op.getImm()) {
+  case SPIRV::Logical:    OS << "Logical";    break;
+  case SPIRV::Physical32: OS << "Physical32"; break;
+  case SPIRV::Physical64: OS << "Physical64"; break;
+  default:
+    llvm_unreachable("Unsupported AddressingModel.");
+  }
 }
 
 void SPIRVInstPrinter::printMemoryModelOperand(const MCInst *MI, unsigned OpNo,
                                                raw_ostream &OS) {
   const MCOperand& Op = MI->getOperand(OpNo);
   assert(Op.isImm() && "MemoryModel operand must be an immediate.");
-  OS << "MemoryModel " << Op.getImm();
+
+  switch (Op.getImm()) {
+  case SPIRV::Simple:  OS << "Simple";  break;
+  case SPIRV::GLSL450: OS << "GLSL450"; break;
+  case SPIRV::OpenCL:  OS << "OpenCL";  break;
+  default:
+    llvm_unreachable("Unsupported MemoryModel.");
+  }
 }
