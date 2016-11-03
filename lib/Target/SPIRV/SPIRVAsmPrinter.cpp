@@ -88,12 +88,12 @@ private:
   MVT getRegType(unsigned RegNo) const;
   SPIRVTargetStreamer *getTargetStreamer();
 
-  void emitCapabilities();
-  void emitExtensions();
-  void emitExtInstImports();
-  void emitMemoryModel();
-  void emitEntryPoints();
-  void emitExecutionModes();
+  void emitCapabilities(MCSubtargetInfo& STI);
+  void emitExtensions(MCSubtargetInfo& STI);
+  void emitExtInstImports(MCSubtargetInfo& STI);
+  void emitMemoryModel(MCSubtargetInfo& STI);
+  void emitEntryPoints(MCSubtargetInfo& STI);
+  void emitExecutionModes(MCSubtargetInfo& STI);
 };
 
 } // end anonymous namespace
@@ -133,27 +133,33 @@ SPIRVTargetStreamer *SPIRVAsmPrinter::getTargetStreamer() {
 //===----------------------------------------------------------------------===//
 
 void SPIRVAsmPrinter::EmitStartOfAsmFile(Module &M) {
+  // We're at the module level. Construct MCSubtarget from the default CPU
+  // and target triple.
+  std::unique_ptr<MCSubtargetInfo> STI(TM.getTarget().createMCSubtargetInfo(
+        TM.getTargetTriple().str(), TM.getTargetCPU(),
+        TM.getTargetFeatureString()));
+
   // The instructions of a SPIR-V module must be in the following order. For 
   // sections earlier than function definitions, it is invalid to use 
   // instructions other than those indicated.
 
   // All OpCapability instructions.
-  emitCapabilities();
+  emitCapabilities(*STI);
 
   // Optional OpExtension instructions (extensions to SPIR-V).
-  emitExtensions();
+  emitExtensions(*STI);
 
   // Optional OpExtInstImport instructions.
-  emitExtInstImports();
+  emitExtInstImports(*STI);
 
   // The single required OpMemoryModel instruction.
-  emitMemoryModel();
+  emitMemoryModel(*STI);
 
   // All entry point declarations, using OpEntryPoint.
-  emitEntryPoints();
+  emitEntryPoints(*STI);
 
   // All execution mode declarations, using OpExecutionMode.
-  emitExecutionModes();
+  emitExecutionModes(*STI);
 
   // These debug instructions, which must be in the following order:
   // all OpString, OpSourceExtension, OpSource, and OpSourceContinued, without forward references.
@@ -266,27 +272,30 @@ bool SPIRVAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI,
   return AsmPrinter::PrintAsmMemoryOperand(MI, OpNo, AsmVariant, ExtraCode, OS);
 }
 
-void SPIRVAsmPrinter::emitCapabilities() {
+void SPIRVAsmPrinter::emitCapabilities(MCSubtargetInfo& STI) {
 
 }
 
-void SPIRVAsmPrinter::emitExtensions() {
+void SPIRVAsmPrinter::emitExtensions(MCSubtargetInfo& STI) {
 
 }
 
-void SPIRVAsmPrinter::emitExtInstImports() {
+void SPIRVAsmPrinter::emitExtInstImports(MCSubtargetInfo& STI) {
 
 }
 
-void SPIRVAsmPrinter::emitMemoryModel() {
+void SPIRVAsmPrinter::emitMemoryModel(MCSubtargetInfo& STI) {
+  // Emit a memory model instruction.
+  MCInst OutMI;
+  OutMI.setOpcode(SPIRV::OpMemoryModel);
+  OutStreamer->EmitInstruction(OutMI, STI);
+}
+
+void SPIRVAsmPrinter::emitEntryPoints(MCSubtargetInfo& STI) {
 
 }
 
-void SPIRVAsmPrinter::emitEntryPoints() {
-
-}
-
-void SPIRVAsmPrinter::emitExecutionModes() {
+void SPIRVAsmPrinter::emitExecutionModes(MCSubtargetInfo& STI) {
 
 }
 
