@@ -21,6 +21,15 @@
 #include "llvm/MC/MCELFStreamer.h"
 #include "llvm/Support/DataTypes.h"
 
+namespace llvm {
+namespace SPIRV {
+enum OperandType {
+  /// Basic block label in a branch construct.
+  OPERAND_BASIC_BLOCK = MCOI::OPERAND_FIRST_TARGET,
+  /// Addressing mode immediate for OpMemoryModel.
+  OPERAND_ADDRESSINGMODE
+};
+}}
 
 // Defines symbolic names for SPIRV registers. This defines a mapping from
 // register name to register number.
