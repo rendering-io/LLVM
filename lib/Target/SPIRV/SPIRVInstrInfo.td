@@ -34,11 +34,17 @@ def SPIRVReturn   : SDNode<"SPIRVISD::RETURN", SDT_SPIRVReturn, [SDNPHasChain]>;
 
 let OperandNamespace = "SPIRV" in {
 
-let OperandType = "OPERAND_ADDRESSINGMODE" in {
-def AddressingMode : Operand<i32> {
-  let PrintMethod = "printSPIRVAddressingModeOperand";
+let OperandType = "OPERAND_ADDRESSINGMODEL" in {
+def AddressingModel : Operand<i32> {
+  let PrintMethod = "printAddressingModelOperand";
 }
-} // OperandType = "OPERAND_SIGNATURE"
+} // OperandType = "OPERAND_ADDRESSINGMODEL"
+
+let OperandType = "OPERAND_MEMORYMODEL" in {
+def MemoryModel : Operand<i32> {
+  let PrintMethod = "printMemoryModelOperand";
+}
+} // OperandType = "OPERAND_MEMORYMODEL"
 
 } // OperandNamespace = "SPIRV"
 
@@ -102,7 +108,7 @@ def OpExtInst : SPIRVInst<OpCodeExtInst,
 
 // OpMemoryModel AddressingModel, MemoryModel
 def OpMemoryModel : SPIRVInst<OpCodeMemoryModel,
-  [], (outs), (ins AddressingMode:$mode), []>;
+  [], (outs), (ins AddressingModel:$addr, MemoryModel:$mem), []>;
 
 // OpEntryPoint ExecutionModel, IdRef, LiteralString, IdRef
 def OpEntryPoint : SPIRVInst<OpCodeEntryPoint,

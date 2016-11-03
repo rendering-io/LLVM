@@ -59,3 +59,18 @@ void SPIRVInstPrinter::printInst(const MCInst *MI, raw_ostream &OS,
 
 void SPIRVInstPrinter::printOperand(const MCInst *MI, unsigned OpNo,
                                     raw_ostream &O) {}
+
+void SPIRVInstPrinter::printAddressingModelOperand(const MCInst *MI,
+                                                   unsigned OpNo,
+                                                   raw_ostream &OS) {
+  const MCOperand& Op = MI->getOperand(OpNo);
+  assert(Op.isImm() && "AddressingModel operand must be an immediate.");
+  OS << "AddressingModel " << Op.getImm();
+}
+
+void SPIRVInstPrinter::printMemoryModelOperand(const MCInst *MI, unsigned OpNo,
+                                               raw_ostream &OS) {
+  const MCOperand& Op = MI->getOperand(OpNo);
+  assert(Op.isImm() && "MemoryModel operand must be an immediate.");
+  OS << "MemoryModel " << Op.getImm();
+}

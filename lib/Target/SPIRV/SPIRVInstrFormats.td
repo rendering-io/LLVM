@@ -644,7 +644,7 @@ def OpCodeTypeVector: Op<23, "OpTypeVector"> {}
 def OpCodeSatConvertUToS: Op<119, "OpSatConvertUToS"> {}
 def OpCodeAtomicUMin: Op<237, "OpAtomicUMin"> {}
 def OpCodeSMulExtended: Op<152, "OpSMulExtended"> {}
-def OpCodeMemoryModel: Op<14, "OpMemoryModel"> {}
+def OpCodeMemoryModel: Op<14, "OpMemoryModel $addr $mem"> {}
 def OpCodeImageQueryLevels: Op<106, "OpImageQueryLevels"> {}
 def OpCodeImageWrite: Op<99, "OpImageWrite"> {}
 def OpCodeSizeOf: Op<321, "OpSizeOf"> {}
