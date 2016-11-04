@@ -16,6 +16,8 @@
 #define LLVM_LIB_TARGET_SPIRV_SPIRVMACHINEMODULEINFO_H
 
 #include "MCTargetDesc/SPIRVMCTargetDesc.h"
+#include "llvm/CodeGen/MachineModuleInfo.h"
+#include "llvm/IR/Type.h"
 
 namespace llvm {
 
@@ -24,12 +26,22 @@ namespace llvm {
 class SPIRVMachineModuleInfo final : public MachineModuleInfoImpl {
   // Maps from an LLVM type to a SPIR-V result id.
   DenseMap<Type*, unsigned> TypeMap;
-  
+
+  // The required capabilities for the module.
+  typedef SmallSetVector<SPIRV::Capability, 26> CapabilitySet;
+  CapabilitySet Capabilities;
+
   const MachineModuleInfo &MMI;
 
   virtual void anchor(); // Out of line virtual method.
 public:
-  explicit SPIRVMachineModuleInfo(const MachineModuleInfo &) : MMI(MMI) {}
+  explicit SPIRVMachineModuleInfo(const MachineModuleInfo &MMI) : MMI(MMI) {}
+
+  void addRequiredCapability(SPIRV::Capability C) {
+    Capabilities.insert(C);
+  };
+
+  const CapabilitySet &capabilities() const { return Capabilities; }
 };
 
 } // end namespace llvm

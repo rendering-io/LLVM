@@ -17,6 +17,7 @@
 #define LLVM_LIB_TARGET_SPIRV_SPIRVINSTRINFO_H
 
 #include "SPIRVRegisterInfo.h"
+#include "MCTargetDesc/SPIRVMCTargetDesc.h"
 #include "llvm/Target/TargetInstrInfo.h"
 
 #define GET_INSTRINFO_HEADER
@@ -37,6 +38,7 @@ public:
   bool isReallyTriviallyReMaterializable(const MachineInstr &MI,
                                          AliasAnalysis *AA) const override;
 
+  SmallVector<SPIRV::Capability, 2> getRequiredCapabilities(const MachineInstr &MI) const;
 //  void copyPhysReg(MachineBasicBlock &MBB, MachineBasicBlock::iterator MI,
 //                   const DebugLoc &DL, unsigned DestReg, unsigned SrcReg,
 //                   bool KillSrc) const override;

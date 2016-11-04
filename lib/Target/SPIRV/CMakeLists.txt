@@ -16,6 +16,7 @@ add_llvm_target(SPIRVCodeGen
   SPIRVISelDAGToDAG.cpp
   SPIRVISelLowering.cpp
   SPIRVMachineFunctionInfo.cpp
+  SPIRVMachineModuleInfo.cpp
   SPIRVMCInstLower.cpp
   SPIRVPrologEpilogPass.cpp
   SPIRVRegisterInfo.cpp
@@ -23,6 +24,7 @@ add_llvm_target(SPIRVCodeGen
   SPIRVSubtarget.cpp
   SPIRVTargetMachine.cpp
   SPIRVTargetObjectFile.cpp
+  SPIRVTrackCapabilities.cpp
 )
 
 add_dependencies(LLVMSPIRVCodeGen intrinsics_gen)

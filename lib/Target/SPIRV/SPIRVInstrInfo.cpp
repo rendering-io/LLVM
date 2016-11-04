@@ -40,3 +40,13 @@ bool SPIRVInstrInfo::isReallyTriviallyReMaterializable(
     return false;
   }
 }
+
+SmallVector<SPIRV::Capability, 2> SPIRVInstrInfo::getRequiredCapabilities(const MachineInstr &MI) const {
+  SmallVector<SPIRV::Capability, 2> Caps;
+  switch (MI.getOpcode()) {
+  default:
+    break;
+  } 
+
+  return Caps;
+}

@@ -20,6 +20,7 @@
 #include "SPIRV.h"
 #include "SPIRVMCInstLower.h"
 #include "SPIRVMachineFunctionInfo.h"
+#include "SPIRVMachineModuleInfo.h"
 #include "SPIRVRegisterInfo.h"
 #include "SPIRVSubtarget.h"
 #include "llvm/ADT/StringExtras.h"
@@ -27,6 +28,7 @@
 #include "llvm/CodeGen/AsmPrinter.h"
 #include "llvm/CodeGen/MachineConstantPool.h"
 #include "llvm/CodeGen/MachineInstr.h"
+#include "llvm/CodeGen/MachineModuleInfo.h"
 #include "llvm/IR/DataLayout.h"
 #include "llvm/MC/MCContext.h"
 #include "llvm/MC/MCStreamer.h"
@@ -273,7 +275,20 @@ bool SPIRVAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI,
 }
 
 void SPIRVAsmPrinter::emitCapabilities(MCSubtargetInfo& STI) {
+  auto *MMI = getAnalysisIfAvailable<MachineModuleInfo>();
+  auto &TMI = MMI->getObjFileInfo<SPIRVMachineModuleInfo>();
 
+  SPIRVTargetStreamer *TS =
+      static_cast<SPIRVTargetStreamer *>(OutStreamer->getTargetStreamer());
+  for (auto C: TMI.capabilities()) {
+    // Emit a capability instruction.
+    MCInst OutMI;
+    OutMI.setOpcode(SPIRV::OpCapability);
+    //OutMI.addOperand(MCOperand::createImm(SPIRV::Logical));
+    //OutMI.addOperand(MCOperand::createImm(SPIRV::GLSL450));
+    OutStreamer->EmitInstruction(OutMI, STI);    
+    OutStreamer->EmitRawText("OutMI, STI");    
+  }
 }
 
 void SPIRVAsmPrinter::emitExtensions(MCSubtargetInfo& STI) {

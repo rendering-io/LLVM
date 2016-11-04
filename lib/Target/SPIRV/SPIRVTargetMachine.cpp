@@ -126,6 +126,7 @@ bool SPIRVPassConfig::addInstSelector() {
 
 void SPIRVPassConfig::addPostRegAlloc() { 
   addPass(createSPIRVPrologEpilogPass(), false);
+  addPass(createSPIRVTrackCapabilityPass(), false);
   TargetPassConfig::addPostRegAlloc();
 }
 

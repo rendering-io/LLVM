@@ -29,8 +29,10 @@ class MachineFunctionPass;
 // ISel and immediate followup passes.
 FunctionPass *createSPIRVISelDag(SPIRVTargetMachine &TM,
                                        CodeGenOpt::Level OptLevel);
-MachineFunctionPass *createSPIRVPrologEpilogPass();
+
 // Late passes.
+MachineFunctionPass *createSPIRVPrologEpilogPass();
+MachineFunctionPass *createSPIRVTrackCapabilityPass();
 
 } // end namespace llvm
 

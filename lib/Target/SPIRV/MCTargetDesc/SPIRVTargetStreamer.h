@@ -18,6 +18,7 @@
 
 #include "llvm/CodeGen/MachineValueType.h"
 #include "llvm/MC/MCStreamer.h"
+#include "SPIRVMCTargetDesc.h"
 
 namespace llvm {
 
