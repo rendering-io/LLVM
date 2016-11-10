@@ -35,6 +35,8 @@ public:
   // Used by tblegen code.
   void printOperand(const MCInst *MI, unsigned OpNo, raw_ostream &O);
 
+  void printCapabilityOperand(const MCInst *MI, unsigned OpNo,
+                              raw_ostream &OS);
   void printAddressingModelOperand(const MCInst *MI, unsigned OpNo,
                                    raw_ostream &OS);
   void printMemoryModelOperand(const MCInst *MI, unsigned OpNo, 

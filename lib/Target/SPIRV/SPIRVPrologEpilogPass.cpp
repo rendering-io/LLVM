@@ -35,6 +35,7 @@ public:
   SPIRVPrologEpilogPass() : MachineFunctionPass(ID) {}
 
   bool runOnMachineFunction(MachineFunction &MF) override;
+  StringRef getPassName() const override;
 };
 }
 
@@ -43,6 +44,10 @@ MachineFunctionPass *llvm::createSPIRVPrologEpilogPass() {
 }
 
 char SPIRVPrologEpilogPass::ID = 0;
+
+StringRef SPIRVPrologEpilogPass::getPassName() const {
+  return "SPIR-V Prolog-Epilog Inserter"; 
+}
 
 bool SPIRVPrologEpilogPass::runOnMachineFunction(MachineFunction &MF) {
   const TargetSubtargetInfo &STI = MF.getSubtarget();

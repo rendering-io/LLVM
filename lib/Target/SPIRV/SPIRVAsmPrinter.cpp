@@ -23,6 +23,7 @@
 #include "SPIRVMachineModuleInfo.h"
 #include "SPIRVRegisterInfo.h"
 #include "SPIRVSubtarget.h"
+#include "SPIRVTrackCapabilities.h"
 #include "llvm/ADT/StringExtras.h"
 #include "llvm/CodeGen/Analysis.h"
 #include "llvm/CodeGen/AsmPrinter.h"
@@ -45,21 +46,30 @@ namespace {
 class SPIRVAsmPrinter final : public AsmPrinter {
   const MachineRegisterInfo *MRI;
   const SPIRVFunctionInfo *MFI;
+  bool HeaderEmitted;
 
 public:
   SPIRVAsmPrinter(TargetMachine &TM, std::unique_ptr<MCStreamer> Streamer)
-      : AsmPrinter(TM, std::move(Streamer)), MRI(nullptr), MFI(nullptr) {}
+      : AsmPrinter(TM, std::move(Streamer)), MRI(nullptr), MFI(nullptr), 
+        HeaderEmitted(false) {}
 
 private:
   StringRef getPassName() const override {
     return "SPIR-V Assembly Printer";
   }
 
+  void getAnalysisUsage(AnalysisUsage &AU) const override;
+
   //===------------------------------------------------------------------===//
   // MachineFunctionPass Implementation.
   //===------------------------------------------------------------------===//
 
   bool runOnMachineFunction(MachineFunction &MF) override {
+    if (!HeaderEmitted) {
+      emitModuleHeader(*MF.getMMI().getModule());
+      HeaderEmitted = true;
+    }
+
     MRI = &MF.getRegInfo();
     MFI = MF.getInfo<SPIRVFunctionInfo>();
     return AsmPrinter::runOnMachineFunction(MF);
@@ -90,6 +100,7 @@ private:
   MVT getRegType(unsigned RegNo) const;
   SPIRVTargetStreamer *getTargetStreamer();
 
+  void emitModuleHeader(const Module &M);
   void emitCapabilities(MCSubtargetInfo& STI);
   void emitExtensions(MCSubtargetInfo& STI);
   void emitExtInstImports(MCSubtargetInfo& STI);
@@ -130,11 +141,99 @@ SPIRVTargetStreamer *SPIRVAsmPrinter::getTargetStreamer() {
   return static_cast<SPIRVTargetStreamer *>(TS);
 }
 
+void SPIRVAsmPrinter::getAnalysisUsage(AnalysisUsage &AU) const {
+  AsmPrinter::getAnalysisUsage(AU);
+  //AU.addRequired<SPIRVTrackCapabilityPass>();
+}
+
 //===----------------------------------------------------------------------===//
 // SPIRVAsmPrinter Implementation.
 //===----------------------------------------------------------------------===//
 
 void SPIRVAsmPrinter::EmitStartOfAsmFile(Module &M) {
+
+}
+
+void SPIRVAsmPrinter::EmitEndOfAsmFile(Module &M) {
+
+}
+
+void SPIRVAsmPrinter::EmitConstantPool() {
+  assert(MF->getConstantPool()->getConstants().empty() &&
+         "SPIRV disables constant pools");
+}
+
+void SPIRVAsmPrinter::EmitBasicBlockStart(const MachineBasicBlock &MBB) const {
+
+}
+
+void SPIRVAsmPrinter::EmitJumpTableInfo() {
+  // Nothing to do; jump tables are incorporated into the instruction stream.
+}
+
+void SPIRVAsmPrinter::EmitFunctionHeader() {
+  
+}
+  
+void SPIRVAsmPrinter::EmitFunctionEntryLabel() {
+}
+
+void SPIRVAsmPrinter::EmitFunctionBodyStart() {
+  AsmPrinter::EmitFunctionBodyStart();
+}
+
+void SPIRVAsmPrinter::EmitFunctionBodyEnd() {
+  getTargetStreamer()->emitEndFunc();
+}
+
+void SPIRVAsmPrinter::EmitInstruction(const MachineInstr *MI) {
+  DEBUG(dbgs() << "EmitInstruction: " << *MI << '\n');
+
+  switch (MI->getOpcode()) {
+    default: {
+      SPIRVMCInstLower MCInstLowering(OutContext, *this);
+      MCInst TmpInst;
+      MCInstLowering.Lower(MI, TmpInst);
+      EmitToStreamer(*OutStreamer, TmpInst);
+      break;
+    }
+  }
+}
+
+const MCExpr *SPIRVAsmPrinter::lowerConstant(const Constant *CV) {
+//  if (const GlobalValue *GV = dyn_cast<GlobalValue>(CV))
+//    if (GV->getValueType()->isFunctionTy())
+//      return MCSymbolRefExpr::create(
+//          getSymbol(GV), MCSymbolRefExpr::VK_SPIRV_FUNCTION, OutContext);
+  return AsmPrinter::lowerConstant(CV);
+}
+
+bool SPIRVAsmPrinter::PrintAsmOperand(const MachineInstr *MI,
+                                            unsigned OpNo, unsigned AsmVariant,
+                                            const char *ExtraCode,
+                                            raw_ostream &OS) {
+  if (AsmVariant != 0)
+    report_fatal_error("There are no defined alternate asm variants");
+
+  // First try the generic code, which knows about modifiers like 'c' and 'n'.
+  if (!AsmPrinter::PrintAsmOperand(MI, OpNo, AsmVariant, ExtraCode, OS))
+    return false;
+
+  return true;
+}
+
+bool SPIRVAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI,
+                                                  unsigned OpNo,
+                                                  unsigned AsmVariant,
+                                                  const char *ExtraCode,
+                                                  raw_ostream &OS) {
+  if (AsmVariant != 0)
+    report_fatal_error("There are no defined alternate asm variants");
+
+  return AsmPrinter::PrintAsmMemoryOperand(MI, OpNo, AsmVariant, ExtraCode, OS);
+}
+
+void SPIRVAsmPrinter::emitModuleHeader(const Module &M) {
   // We're at the module level. Construct MCSubtarget from the default CPU
   // and target triple.
   std::unique_ptr<MCSubtargetInfo> STI(TM.getTarget().createMCSubtargetInfo(
@@ -194,100 +293,23 @@ void SPIRVAsmPrinter::EmitStartOfAsmFile(Module &M) {
   // Function end, using OpFunctionEnd.
 }
 
-void SPIRVAsmPrinter::EmitEndOfAsmFile(Module &M) {
-
-}
-
-void SPIRVAsmPrinter::EmitConstantPool() {
-  assert(MF->getConstantPool()->getConstants().empty() &&
-         "SPIRV disables constant pools");
-}
-
-void SPIRVAsmPrinter::EmitBasicBlockStart(const MachineBasicBlock &MBB) const {
-
-}
-
-void SPIRVAsmPrinter::EmitJumpTableInfo() {
-  // Nothing to do; jump tables are incorporated into the instruction stream.
-}
-
-void SPIRVAsmPrinter::EmitFunctionHeader() {
-  
-}
-  
-void SPIRVAsmPrinter::EmitFunctionEntryLabel() {
-
-}
-
-void SPIRVAsmPrinter::EmitFunctionBodyStart() {
-  AsmPrinter::EmitFunctionBodyStart();
-}
-
-void SPIRVAsmPrinter::EmitFunctionBodyEnd() {
-  getTargetStreamer()->emitEndFunc();
-}
-
-void SPIRVAsmPrinter::EmitInstruction(const MachineInstr *MI) {
-  DEBUG(dbgs() << "EmitInstruction: " << *MI << '\n');
-
-  switch (MI->getOpcode()) {
-    default: {
-      SPIRVMCInstLower MCInstLowering(OutContext, *this);
-      MCInst TmpInst;
-      MCInstLowering.Lower(MI, TmpInst);
-      EmitToStreamer(*OutStreamer, TmpInst);
-      break;
-    }
-  }
-}
-
-const MCExpr *SPIRVAsmPrinter::lowerConstant(const Constant *CV) {
-//  if (const GlobalValue *GV = dyn_cast<GlobalValue>(CV))
-//    if (GV->getValueType()->isFunctionTy())
-//      return MCSymbolRefExpr::create(
-//          getSymbol(GV), MCSymbolRefExpr::VK_SPIRV_FUNCTION, OutContext);
-  return AsmPrinter::lowerConstant(CV);
-}
-
-bool SPIRVAsmPrinter::PrintAsmOperand(const MachineInstr *MI,
-                                            unsigned OpNo, unsigned AsmVariant,
-                                            const char *ExtraCode,
-                                            raw_ostream &OS) {
-  if (AsmVariant != 0)
-    report_fatal_error("There are no defined alternate asm variants");
-
-  // First try the generic code, which knows about modifiers like 'c' and 'n'.
-  if (!AsmPrinter::PrintAsmOperand(MI, OpNo, AsmVariant, ExtraCode, OS))
-    return false;
-
-  return true;
-}
-
-bool SPIRVAsmPrinter::PrintAsmMemoryOperand(const MachineInstr *MI,
-                                                  unsigned OpNo,
-                                                  unsigned AsmVariant,
-                                                  const char *ExtraCode,
-                                                  raw_ostream &OS) {
-  if (AsmVariant != 0)
-    report_fatal_error("There are no defined alternate asm variants");
-
-  return AsmPrinter::PrintAsmMemoryOperand(MI, OpNo, AsmVariant, ExtraCode, OS);
-}
-
 void SPIRVAsmPrinter::emitCapabilities(MCSubtargetInfo& STI) {
   auto *MMI = getAnalysisIfAvailable<MachineModuleInfo>();
   auto &TMI = MMI->getObjFileInfo<SPIRVMachineModuleInfo>();
+  DEBUG(dbgs() << "********** SPIRVAsmPrinter **********\n"
+                  "********** TMI: "
+               << &TMI << '\n');  
 
   SPIRVTargetStreamer *TS =
       static_cast<SPIRVTargetStreamer *>(OutStreamer->getTargetStreamer());
   for (auto C: TMI.capabilities()) {
+     DEBUG(dbgs() << "Cap\n");
     // Emit a capability instruction.
     MCInst OutMI;
     OutMI.setOpcode(SPIRV::OpCapability);
-    //OutMI.addOperand(MCOperand::createImm(SPIRV::Logical));
+    OutMI.addOperand(MCOperand::createImm(C));
     //OutMI.addOperand(MCOperand::createImm(SPIRV::GLSL450));
     OutStreamer->EmitInstruction(OutMI, STI);    
-    OutStreamer->EmitRawText("OutMI, STI");    
   }
 }
 

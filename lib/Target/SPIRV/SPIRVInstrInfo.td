@@ -40,6 +40,12 @@ def AddressingModel : Operand<i32> {
 }
 } // OperandType = "OPERAND_ADDRESSINGMODEL"
 
+let OperandType = "OPERAND_CAPABILITY" in {
+def Capability : Operand<i32> {
+  let PrintMethod = "printCapabilityOperand";
+}
+} // OperandType = "OPERAND_CAPABILITY"
+
 let OperandType = "OPERAND_MEMORYMODEL" in {
 def MemoryModel : Operand<i32> {
   let PrintMethod = "printMemoryModelOperand";
@@ -120,7 +126,7 @@ def OpExecutionMode : SPIRVInst<OpCodeExecutionMode,
 
 // OpCapability Capability
 def OpCapability : SPIRVInst<OpCodeCapability,
-  [], (outs), (ins), []>;
+  [], (outs), (ins Capability:$cap), []>;
 
 // OpTypeVoid IdResult
 def OpTypeVoid : SPIRVInst<OpCodeTypeVoid,

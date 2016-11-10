@@ -741,7 +741,7 @@ def OpCodeConvertFToU: Op<109, "OpConvertFToU"> {}
 def OpCodeGroupSMin: Op<268, "OpGroupSMin"> {}
 def OpCodeReservedReadPipe: Op<276, "OpReservedReadPipe"> {}
 def OpCodeUMod: Op<137, "OpUMod"> {}
-def OpCodeCapability: Op<17, "OpCapability"> {}
+def OpCodeCapability: Op<17, "OpCapability $cap"> {}
 def OpCodeVectorTimesMatrix: Op<144, "OpVectorTimesMatrix"> {}
 def OpCodeImageSparseSampleProjDrefExplicitLod: Op<312, "OpImageSparseSampleProjDrefExplicitLod"> {}
 def OpCodeEmitVertex: Op<218, "OpEmitVertex"> {}

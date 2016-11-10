@@ -15,6 +15,7 @@
 #include "SPIRV.h"
 #include "SPIRVSubtarget.h"
 #include "SPIRVMachineModuleInfo.h"
+#include "SPIRVTrackCapabilities.h"
 #include "MCTargetDesc/SPIRVMCTargetDesc.h"
 #include "llvm/CodeGen/MachineFrameInfo.h"
 #include "llvm/CodeGen/MachineFunction.h"
@@ -30,29 +31,28 @@ using namespace llvm;
 
 #define DEBUG_TYPE "spirv-track-capability"
 
-namespace {
-class SPIRVTrackCapabilityPass : public MachineFunctionPass {
-public:
-  static char ID;
-  SPIRVTrackCapabilityPass() : MachineFunctionPass(ID) {}
-
-  bool runOnMachineFunction(MachineFunction &MF) override;
-};
-}
-
-MachineFunctionPass *llvm::createSPIRVTrackCapabilityPass() {
+ModulePass *llvm::createSPIRVTrackCapabilityPass() {
   return new SPIRVTrackCapabilityPass();
 }
 
 char SPIRVTrackCapabilityPass::ID = 0;
 
+void SPIRVTrackCapabilityPass::getAnalysisUsage(AnalysisUsage &AU) const {
+  AU.addRequired<MachineModuleInfo>();
+  AU.addPreserved<MachineModuleInfo>();
+  ModulePass::getAnalysisUsage(AU);
+}
+
+StringRef SPIRVTrackCapabilityPass::getPassName() const {
+  return "SPIR-V Capability Tracker"; 
+}
+
 bool SPIRVTrackCapabilityPass::runOnMachineFunction(MachineFunction &MF) {
-  DEBUG(dbgs() << "********** Track Capabilities **********\n"
-                  "********** Function: "
-               << MF.getName() << '\n');  
   const SPIRVSubtarget &ST = MF.getSubtarget<SPIRVSubtarget>();
   const SPIRVInstrInfo *TII = ST.getInstrInfo();  
   SPIRVMachineModuleInfo &TMI = MF.getMMI().getObjFileInfo<SPIRVMachineModuleInfo>();
+  DEBUG(dbgs() << "********** Function: "
+               << MF.getName() << '\n');  
   
   bool Modified = false;
  
@@ -69,5 +69,20 @@ bool SPIRVTrackCapabilityPass::runOnMachineFunction(MachineFunction &MF) {
     }
   }
 
+  return Modified;
+}
+
+bool SPIRVTrackCapabilityPass::runOnModule(Module &M) {
+  DEBUG(dbgs() << "********** Track Capabilities **********\n");  
+
+  bool Modified = false;
+  MachineModuleInfo &MMI = getAnalysis<MachineModuleInfo>();
+
+  // Traverse the list of functions, get the machine function and analyse it.
+  for (auto &F: M) {
+    MachineFunction &MF = MMI.getMachineFunction(F);
+    if (runOnMachineFunction(MF))
+      Modified = true;
+  }
   return Modified;
 }

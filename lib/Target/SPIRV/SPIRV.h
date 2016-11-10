@@ -32,7 +32,7 @@ FunctionPass *createSPIRVISelDag(SPIRVTargetMachine &TM,
 
 // Late passes.
 MachineFunctionPass *createSPIRVPrologEpilogPass();
-MachineFunctionPass *createSPIRVTrackCapabilityPass();
+ModulePass *createSPIRVTrackCapabilityPass();
 
 } // end namespace llvm
 

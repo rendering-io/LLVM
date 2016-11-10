@@ -26,6 +26,8 @@ namespace SPIRV {
 enum OperandType {
   /// Basic block label in a branch construct.
   OPERAND_BASIC_BLOCK = MCOI::OPERAND_FIRST_TARGET,
+  /// Capability immediate for OpCapability.
+  OPERAND_CAPABILITY,
   /// Addressing model immediate for OpMemoryModel.
   OPERAND_ADDRESSINGMODEL,
   /// Memory model immediate for OpMemoryModel.
