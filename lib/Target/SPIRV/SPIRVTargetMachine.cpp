@@ -113,6 +113,10 @@ void SPIRVPassConfig::addIRPasses() {
   disablePass(&LiveDebugValuesID);
   disablePass(&PatchableFunctionID);
   
+  // Replace alloca instructions so we can lower then to OpVariable later 
+  // without stack frame handling interfering.
+  addPass(createSPIRVLowerAlloca());
+
   TargetPassConfig::addIRPasses();
 }
 

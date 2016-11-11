@@ -26,6 +26,8 @@ class ModulePass;
 class FunctionPass;
 class MachineFunctionPass;
 
+FunctionPass *createSPIRVLowerAlloca();
+
 // ISel and immediate followup passes.
 FunctionPass *createSPIRVISelDag(SPIRVTargetMachine &TM,
                                        CodeGenOpt::Level OptLevel);
