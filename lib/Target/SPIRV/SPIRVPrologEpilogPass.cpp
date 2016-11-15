@@ -58,5 +58,7 @@ bool SPIRVPrologEpilogPass::runOnMachineFunction(MachineFunction &MF) {
   // Add function prolog/epilog
   TFI.emitPrologue(MF, MF.front());
 
+  TFI.emitEpilogue(MF, *MF.rbegin());
+
   return Modified;
 }

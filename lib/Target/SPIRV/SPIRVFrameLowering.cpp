@@ -57,6 +57,15 @@ void SPIRVFrameLowering::emitPrologue(MachineFunction &MF,
 
 void SPIRVFrameLowering::emitEpilogue(MachineFunction &MF,
                                             MachineBasicBlock &MBB) const {
+  const SPIRVSubtarget &ST = MF.getSubtarget<SPIRVSubtarget>();
+  const SPIRVInstrInfo *TII = ST.getInstrInfo();
+
+  DebugLoc DL = DebugLoc();
+
+  // Create a function end instruction.
+  const MachineInstrBuilder &MIB = BuildMI(MBB, MBB.end(), DL,
+                                           TII->get(SPIRV::OpFunctionEnd));
+
 }
 
 bool SPIRVFrameLowering::hasFP(const MachineFunction &MF) const { 
