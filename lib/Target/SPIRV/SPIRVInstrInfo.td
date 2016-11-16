@@ -46,6 +46,12 @@ def Capability : Operand<i32> {
 }
 } // OperandType = "OPERAND_CAPABILITY"
 
+let OperandType = "OPERAND_FUNCTIONCONTROLFLAGS" in {
+def FunctionControlFlags : Operand<i32> {
+  let PrintMethod = "printFunctionControlFlagsOperand";
+}
+} // OperandType = "OPERAND_FUNCTIONCONTROLFLAGS"
+
 let OperandType = "OPERAND_MEMORYMODEL" in {
 def MemoryModel : Operand<i32> {
   let PrintMethod = "printMemoryModelOperand";
@@ -258,7 +264,7 @@ def OpSpecConstantOp : SPIRVInst<OpCodeSpecConstantOp,
 
 // OpFunction IdResultType, IdResult, FunctionControl, IdRef
 def OpFunction : SPIRVInst<OpCodeFunction,
-  [], (outs), (ins), []>;
+  [], (outs), (ins FunctionControlFlags:$ctrl), []>;
 
 // OpFunctionParameter IdResultType, IdResult
 def OpFunctionParameter : SPIRVInst<OpCodeFunctionParameter,

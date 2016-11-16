@@ -270,6 +270,19 @@ void SPIRVInstPrinter::printCapabilityOperand(const MCInst *MI,
   }
 }
 
+void SPIRVInstPrinter::printFunctionControlFlagsOperand(const MCInst *MI,
+                                                        unsigned OpNo,
+                                                        raw_ostream &OS) {
+  const MCOperand& Op = MI->getOperand(OpNo);
+  assert(Op.isImm() && "FunctionControlFlags operand must be an immediate.");
+
+  if (int64_t(SPIRV::FunctionControl::None) == Op.getImm()) {
+    OS << "None";
+  } else {
+    llvm_unreachable("Unsupported FunctionControlFlags.");
+  }
+}
+
 void SPIRVInstPrinter::printMemoryModelOperand(const MCInst *MI, unsigned OpNo,
                                                raw_ostream &OS) {
   const MCOperand& Op = MI->getOperand(OpNo);

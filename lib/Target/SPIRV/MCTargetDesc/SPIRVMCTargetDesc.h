@@ -31,7 +31,9 @@ enum OperandType {
   /// Addressing model immediate for OpMemoryModel.
   OPERAND_ADDRESSINGMODEL,
   /// Memory model immediate for OpMemoryModel.
-  OPERAND_MEMORYMODEL
+  OPERAND_MEMORYMODEL,
+  /// Function control flags for OpFunction.
+  OPERAND_FUNCTIONCONTROLFLAGS
 };
 
 /// SPIR-V addressing model identifiers.
@@ -110,6 +112,22 @@ enum Capability: uint32_t {
   PipeStorage = 60,
   SubgroupBallotKHR = 4423,
   DrawParameters = 4427,
+};
+
+enum class FunctionControl : uint32_t {
+  None = 0x0,
+  // Strong request, to the extent possible, to inline the function.
+  Inline = 0x1,
+  // Strong request, to the extent possible, to not inline the function.
+  DontInline = 0x2,
+  // Compiler can assume this function has no side effect, but might read global
+  // memory or read through dereferenced function parameters. Always computes 
+  // the same result for the same argument values.
+  Pure = 0x4,
+  // Compiler can assume this function has no side effects, and will not access
+  // global memory or dereference function parameters. Always computes the same
+  // result for the same argument values.  
+  Const = 0x8
 };
 
 }}

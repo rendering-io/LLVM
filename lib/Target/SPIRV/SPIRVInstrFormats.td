@@ -698,7 +698,7 @@ def OpCodeImageSparseDrefGather: Op<315, "OpImageSparseDrefGather"> {}
 def OpCodeGroupAsyncCopy: Op<259, "OpGroupAsyncCopy"> {}
 def OpCodeTypeVoid: Op<19, "OpTypeVoid"> {}
 def OpCodeImageSparseSampleImplicitLod: Op<305, "OpImageSparseSampleImplicitLod"> {}
-def OpCodeFunction: Op<54, "OpFunction"> {}
+def OpCodeFunction: Op<54, "% = OpFunction % $ctrl %"> {}
 def OpCodeImageQuerySizeLod: Op<103, "OpImageQuerySizeLod"> {}
 def OpCodeImageSampleProjImplicitLod: Op<91, "OpImageSampleProjImplicitLod"> {}
 def OpCodeImageQueryFormat: Op<101, "OpImageQueryFormat"> {}

@@ -39,20 +39,19 @@ void SPIRVFrameLowering::emitPrologue(MachineFunction &MF,
   MachineRegisterInfo &MRI = MF.getRegInfo();
 
   DebugLoc DL = DebugLoc();
+
   
   // Create a label instruction.
   const MachineInstrBuilder &MIB = BuildMI(MBB, MBB.begin(), DL,
                                            TII->get(SPIRV::OpLabel));
 
+  // Create an OpFunction instruction.
+  BuildMI(MBB, MBB.begin(), DL, TII->get(SPIRV::OpFunction))
+    .addImm(static_cast<int64_t>(SPIRV::FunctionControl::None));
+
   // Get the expected register class for the destination register.
   MachineInstr *MI = MIB;
   const TargetRegisterClass *TRC = TII->getRegClass(MI->getDesc(), 0, &TRI, MF);
-
-  // Create a corresponding virtual register.
-  // Temporarily commented out because auto generated instructions don't have 
-  // destination registers yet.
-  //unsigned DestReg = MRI.createVirtualRegister(TRC);
-  //MIB.addReg(DestReg);
 }
 
 void SPIRVFrameLowering::emitEpilogue(MachineFunction &MF,
